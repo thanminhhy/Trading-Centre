@@ -63,3 +63,14 @@ exports.isLoggedIn = async (req, res, next) => {
   }
   next();
 };
+
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: 'success',
+  });
+};
