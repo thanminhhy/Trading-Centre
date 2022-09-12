@@ -42,10 +42,10 @@ const signUp = async (
     });
 
     if (res.data.status === 'success') {
-      showAlert('success', 'Sign Up successfully!');
+      showAlert('success', 'Please check your email to verify account!');
       window.setTimeout(() => {
         location.assign('/');
-      }, 1500);
+      }, 5000);
     }
   } catch (err) {
     showAlert('error', err.response.data.message);

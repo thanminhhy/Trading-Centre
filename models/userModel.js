@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,6 +20,17 @@ const userSchema = new mongoose.Schema({
   photo: {
     type: String,
     default: 'default.jpg',
+  },
+
+  status: {
+    type: String,
+    enum: ['Pending', 'Active', 'InActive'],
+    default: 'Pending',
+    select: false,
+  },
+
+  confirmationCode: {
+    type: String,
   },
 
   role: {
@@ -46,17 +58,12 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same!',
     },
   },
+
   passwordChangedAt: Date,
 
   passwordResetToken: String,
 
   passwordResetExpires: Date,
-
-  active: {
-    type: Boolean,
-    default: true,
-    select: false,
-  },
 
   dateOfBirth: Date,
 
@@ -86,6 +93,17 @@ userSchema.methods.correctPassword = async function (
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+userSchema.methods.createConfirmationCode = function () {
+  const hashedCode = crypto.randomBytes(32).toString('hex');
+
+  this.confirmationCode = crypto
+    .createHash('sha256')
+    .update(hashedCode)
+    .digest('hex');
+
+  return hashedCode;
 };
 
 const User = mongoose.model('User', userSchema);
