@@ -105,6 +105,18 @@ userSchema.methods.createConfirmationCode = function () {
 
   return hashedCode;
 };
+userSchema.methods.changedPasswordAfter = function (JWTtimesamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+
+    return JWTtimesamp < changedTimestamp; // 100<200
+  }
+  //Password not change
+  return false;
+};
 
 const User = mongoose.model('User', userSchema);
 

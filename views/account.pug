@@ -29,8 +29,6 @@ block content
       .user-view__content
         .user-view__form-container
           h2.heading-secondary.ma-bt-md Your account settings
-          //-WITHOUT API
-          //- form.form.form-user-data(action='/submit-user-data' method='POST' enctype='multipart/form-data')
           //-WITH API
           form.form.form-user-data
             .form__group
@@ -39,6 +37,21 @@ block content
             .form__group.ma-bt-md
               label.form__label(for='email') Email address
               input#email.form__input(type='email', value=`${user.email}`, required, name='email')
+            .form__group.ma-bt-md
+              label.form__label(for='dateOfBirth') Date Of Birth
+              input#dateOfBirth.form__input(type='date', value=`${moment(user.dateOfBirth).format('YYYY-MM-DD')}`, required, name='dateOfBirth')
+            .form__group.ma-bt-md
+              label.form__label(for='phoneNumber') Phone Number
+              input#phoneNumber.form__input(type='text', value=`${user.phoneNumber}`, required, name='phoneNumber')
+            .form__group.ma-bt-md
+              label.form__label(for='city') City
+              input#city.form__input(type='text', value=`${user.city}`, required, name='city')
+            .form__group.ma-bt-md
+              label.form__label(for='address') Address
+              input#address.form__input(type='text', value=`${user.address}`, required, name='address')
+            .form__group.ma-bt-md
+              label.form__label(for='gender') Gender
+              input#gender.form__input(type='text', value=`${user.gender}`, required, name='gender')
             .form__group.form__photo-upload
               img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
               input.form__upload(type='file', accept='image/*', id='photo', name='photo')
