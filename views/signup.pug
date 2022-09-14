@@ -1,0 +1,36 @@
+extends base
+
+block content
+  main.main
+    .signup-form
+      h2.heading-secondary.ma-bt-lg Sign Up An Account
+      form.form.form--signup
+        .form__group
+          label.form__label(for='email') Email address
+          input#email.form__input(type='email', placeholder='you@example.com', required)
+        .form__group
+          label.form__label(for='name') Name
+          input#name.form__input(type='name', placeholder='Nguyen Van Lach', required)
+        .form__group
+          label.form__label(for='dateOfBirth') Date Of Birth
+          input#dateOfBirth.form__input(type='date', required)
+        .form__group
+          label.form__label(for='city') City
+          input#city.form__input(type='text', required)
+        .form__group
+          label.form__label(for='address') Address
+          input#address.form__input(type='text', required)
+        .form__group
+          label.form__label(for='phoneNumber') PhoneNumber
+          input#phoneNumber.form__input(type='text', required)
+        .form__group
+          label.form__label(for='gender') Gender
+          input#gender.form__input(type='text', required)
+        .form__group.ma-bt-md
+          label.form__label(for='password') Password
+          input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+        .form__group.ma-bt-md
+          label.form__label(for='passwordConfirm') Password Confirm
+          input#passwordConfirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
+        .form__group
+          button.btn.btn--green Sign Up
