@@ -13,7 +13,6 @@ block content
       nav.user-view__menu
         ul.side-nav
           +navItem('#','Settings','settings',true)
-          +navItem('#','My bookings','briefcase')
           +navItem('#','My reivews','star')
           +navItem('#','Billing','credit-card')
         - if(user.role === 'admin')
@@ -24,6 +23,15 @@ block content
               +navItem('#','Manage users', 'users')
               +navItem('#','Manage reviews', 'star')
               +navItem('#','Manage bookings', 'briefcase')
+        - if(user.role === 'admin')
+          .lessor-nav
+            h5.admin-nav__heading Lessor
+            ul.side-nav
+              +navItem('#','Settings','settings',true)
+              +navItem('#','My Post','briefcase')
+              +navItem('#','My reivews','star')
+              +navItem('#','Billing','credit-card')
+
 
 
       .user-view__content
