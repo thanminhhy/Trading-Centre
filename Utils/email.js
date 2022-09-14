@@ -5,7 +5,7 @@ const catchAsync = require('./../Utils/catchAsync');
 
 module.exports = class Email {
   constructor(user, url) {
-    this.to = user.email;
+    this.to = `${user.name} ${user.email}`;
     this.firstName = user.name.split(' ')[0];
     this.url = url;
     this.from = `Than Minh Hy <${process.env.EMAIL_FROM}>`;
@@ -50,5 +50,12 @@ module.exports = class Email {
 
   async sendWelcome() {
     await this.send('welcome', 'Welcome to the Trading Centre!');
+  }
+
+  async sendPasswordReset() {
+    await this.send(
+      'passwordReset',
+      'Your password reset token (valid for only 5 minutes)'
+    );
   }
 };

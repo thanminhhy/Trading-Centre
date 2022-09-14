@@ -41,3 +41,18 @@ exports.getAccount = (req, res) => {
     moment: require('moment'),
   });
 };
+
+exports.getForgotPasswordForm = (req, res) => {
+  res.status(200).render('forgotPassword', {
+    title: 'Forget Password',
+  });
+};
+
+exports.getResetPasswordForm = (req, res) => {
+  const resetToken = req.params.resetToken;
+  console.log(resetToken);
+  res.status(200).render('resetPassword', {
+    title: 'Reset Password',
+    resetToken,
+  });
+};

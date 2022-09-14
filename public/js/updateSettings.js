@@ -51,7 +51,7 @@ if (updatePasswordForm) {
     const currentPassword = document.getElementById('password-current').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('password-confirm').value;
-    console.log(currentPassword, password, passwordConfirm);
+
     await updateSettings(
       { currentPassword, password, passwordConfirm },
       'password'
