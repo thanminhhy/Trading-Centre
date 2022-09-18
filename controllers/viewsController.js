@@ -66,7 +66,6 @@ exports.getResetPasswordForm = (req, res) => {
   });
 };
 
-<<<<<<< HEAD
 exports.getCreatePostForm = (req, res) => {
   res.status(200).render('createPost', {
     title: 'Create New Post',
@@ -115,10 +114,3 @@ exports.deletePostForm = catchAsync(async (req, res, next) => {
     post,
   });
 });
-=======
-exports.createPost = (req, res) => {
-  if (req.cookies.jwt) {
-    return res.redirect('/');
-  }
-};
->>>>>>> df74eb81f7f4de925b391fe776b850793fa90d66

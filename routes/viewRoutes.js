@@ -11,7 +11,7 @@ router.get('/login', viewsController.getLoginForm);
 router.get('/signup', viewsController.getSignUpForm);
 router.get('/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/resetPassword/:resetToken', viewsController.getResetPasswordForm);
-<<<<<<< HEAD
+
 router.get(
   '/createPost',
   authController.protect,
@@ -28,7 +28,5 @@ router.get(
   authController.protect,
   viewsController.deletePostForm
 );
-=======
->>>>>>> df74eb81f7f4de925b391fe776b850793fa90d66
 
 module.exports = router;
