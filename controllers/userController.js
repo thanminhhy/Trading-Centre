@@ -34,6 +34,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   next();
 });
+
 const fitlerObj = (obj, ...alowwedFields) => {
   const newObj = {};
   Object.keys(obj).forEach((el) => {

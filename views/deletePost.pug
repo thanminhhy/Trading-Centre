@@ -1,0 +1,10 @@
+extends base
+
+block content
+  main.main
+    .deletePost-form
+      h2.heading-secondary.ma-bt-lg Are you sure to delete #{post.title} Post
+      input#postId.form-control(type='hidden', name='postId', value=post.id)
+      form.form.form--deletePost
+        .form__group
+          button.btn.btn--green Yes

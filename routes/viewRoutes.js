@@ -11,4 +11,21 @@ router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 router.get('/signup', authController.isLoggedIn, viewsController.getSignUpForm);
 router.get('/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/resetPassword/:resetToken', viewsController.getResetPasswordForm);
+router.get(
+  '/createPost',
+  authController.protect,
+  viewsController.getCreatePostForm
+);
+router.get('/post/:postId', authController.protect, viewsController.getPost);
+router.get(
+  '/editPost/:postId',
+  authController.protect,
+  viewsController.getEditPostForm
+);
+router.get(
+  '/deletePost/:postId',
+  authController.protect,
+  viewsController.deletePostForm
+);
+
 module.exports = router;
