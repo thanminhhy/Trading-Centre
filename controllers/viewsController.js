@@ -44,12 +44,20 @@ exports.getAccount = (req, res) => {
 };
 
 exports.getForgotPasswordForm = (req, res) => {
+  if (req.cookies.jwt) {
+    return res.redirect('/');
+  }
+
   res.status(200).render('forgotPassword', {
     title: 'Forget Password',
   });
 };
 
 exports.getResetPasswordForm = (req, res) => {
+  if (req.cookies.jwt) {
+    return res.redirect('/');
+  }
+
   const resetToken = req.params.resetToken;
   console.log(resetToken);
   res.status(200).render('resetPassword', {
@@ -58,6 +66,7 @@ exports.getResetPasswordForm = (req, res) => {
   });
 };
 
+<<<<<<< HEAD
 exports.getCreatePostForm = (req, res) => {
   res.status(200).render('createPost', {
     title: 'Create New Post',
@@ -106,3 +115,10 @@ exports.deletePostForm = catchAsync(async (req, res, next) => {
     post,
   });
 });
+=======
+exports.createPost = (req, res) => {
+  if (req.cookies.jwt) {
+    return res.redirect('/');
+  }
+};
+>>>>>>> df74eb81f7f4de925b391fe776b850793fa90d66

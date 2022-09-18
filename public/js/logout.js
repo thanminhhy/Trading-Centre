@@ -12,7 +12,7 @@ const logout = async () => {
     if ((res.data.status = 'success')) {
       showAlert('success', 'Logout Successfully!');
       window.setTimeout(() => {
-        location.reload(true);
+        location.assign('/login');
       }, 1000);
     }
   } catch (err) {
