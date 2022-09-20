@@ -25,11 +25,12 @@ block content
           +overviewBox('Price', `${post.price}`, 'credit-card')
           +overviewBox('Owner', `${post.lessor.name}`, 'user')
           //- +overviewBox('Rating', `${post.ratingsAverage} / 5`, 'star')
-          a.edit__button(href= `/editPost/${[post.id]}`) 
-            button.btn.btn--green Edit
+          -if(user.id === post.lessor.id)
+            a.edit__button(href= `/editPost/${[post.id]}`) 
+              button.btn.btn--green Edit
 
-          a.delete__button(href= `/deletePost/${post.id}`) 
-            button.btn.btn--red Delete
+            a.delete__button(href= `/deletePost/${post.id}`) 
+              button.btn.btn--red Delete
 
         //- .overview-box__group
         //-   h2.heading-secondary.ma-bt-lg Your post guides

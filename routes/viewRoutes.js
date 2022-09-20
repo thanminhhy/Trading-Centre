@@ -13,19 +13,29 @@ router.get('/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/resetPassword/:resetToken', viewsController.getResetPasswordForm);
 
 router.get(
+  '/myPosts',
+  authController.protect,
+  authController.restrictTo('lessor'),
+  viewsController.getMyPosts
+);
+
+router.get(
   '/createPost',
   authController.protect,
+  authController.restrictTo('lessor'),
   viewsController.getCreatePostForm
 );
-router.get('/post/:postId', authController.protect, viewsController.getPost);
+router.get('/post/:postId', authController.isLoggedIn, viewsController.getPost);
 router.get(
   '/editPost/:postId',
   authController.protect,
+  authController.restrictTo('lessor'),
   viewsController.getEditPostForm
 );
 router.get(
   '/deletePost/:postId',
   authController.protect,
+  authController.restrictTo('lessor'),
   viewsController.deletePostForm
 );
 

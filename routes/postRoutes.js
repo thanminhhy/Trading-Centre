@@ -8,6 +8,7 @@ router
   .route('/')
   .post(
     authController.protect,
+    authController.restrictTo('lessor'),
     postController.uploadPostImages,
     postController.resizePostImages,
     postController.setUserId,
@@ -18,10 +19,15 @@ router
   .route('/:id')
   .patch(
     authController.protect,
+    authController.restrictTo('lessor'),
     postController.uploadPostImages,
     postController.resizePostImages,
     postController.editPost
   )
-  .delete(authController.protect, postController.deletePost);
+  .delete(
+    authController.protect,
+    authController.restrictTo('lessor'),
+    postController.deletePost
+  );
 
 module.exports = router;

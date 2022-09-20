@@ -2,6 +2,9 @@ extends base
 
 block content
   main.main 
+    -if(user.role === 'lessor')
+      a.edit__button(href= '/createPost') 
+        button.btn.btn--green Create New Post
     .card-container
       each post in posts
         .card
