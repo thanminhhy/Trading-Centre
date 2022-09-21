@@ -1,0 +1,43 @@
+extends base
+
+block content
+  main.main 
+    .card-container
+      each post in posts
+        .card
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`img/posts/${post.imageCover}`, alt=`${post.title}`)
+            h3.heading-tertirary
+              span= post.title
+
+          .card__details
+            h4.card__sub-heading= `${post.description}`
+            p.card__text= `category`
+            //- .card__data
+            //-   svg.card__icon
+            //-     use(xlink:href='img/icons.svg#icon-map-pin')
+            //-   span= post.startLocation.description
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-calendar')
+              span= post.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-user')
+              span= `${post.lessor.name}`
+            //- .card__data
+            //-   svg.card__icon
+            //-     use(xlink:href='img/icons.svg#icon-user')
+            //-   span= `${post.maxGroupSize} people`
+
+          .card__footer
+            p
+              span.card__footer-value= `$${post.price}`
+
+            //- p.card__ratings
+            //-   span.card__footer-value= `${post.ratingsAverage}`
+            //-   | 
+            //-   span.card__footer-text=`rating (${post.ratingsQuantity})`
+            a.btn.btn--green.btn--small(href=`/post/${post.id}`) Details
