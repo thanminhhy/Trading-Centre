@@ -46,7 +46,7 @@ const deletePost = async (postId) => {
       method: 'DELETE',
       url: `/api/posts/${postId}`,
     });
-    console.log(res);
+
     if (res.status === 204) {
       showAlert('success', 'Delete Post successfully!');
       window.setTimeout(() => {
@@ -98,7 +98,6 @@ if (editPostForm) {
 if (deletePostForm) {
   deletePostForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const form = new FormData();
     const postId = document.getElementById('postId').value;
 
     deletePost(postId);

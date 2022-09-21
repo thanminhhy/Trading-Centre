@@ -25,7 +25,10 @@ block content
           +overviewBox('Price', `${post.price}`, 'credit-card')
           +overviewBox('Owner', `${post.lessor.name}`, 'user')
           //- +overviewBox('Rating', `${post.ratingsAverage} / 5`, 'star')
-          -if(user.id === post.lessor.id)
+          -if(!user || user.id !== post.lessor.id && user.role !== 'admin')
+            a.buy__button(href='/')
+              button.btn.btn--green Buy
+          -else if(user.role === 'admin' || user.id === post.lessor.id  )
             a.edit__button(href= `/editPost/${[post.id]}`) 
               button.btn.btn--green Edit
 

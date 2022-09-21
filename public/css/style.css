@@ -1354,3 +1354,11 @@ button.btn.btn--red {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
+
+.row {
+  padding-left: 20px;
+}
+
+/* .table-wrapper {
+  padding-bottom: 380px;
+} */

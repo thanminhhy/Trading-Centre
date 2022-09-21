@@ -3,6 +3,7 @@ const sharp = require('sharp');
 const User = require('./../models/userModel');
 const catchAsync = require('./../Utils/catchAsync');
 const AppError = require('../Utils/appError');
+const factory = require('./handlerFactory');
 
 const multerStorage = multer.memoryStorage();
 
@@ -77,3 +78,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.updateUser = factory.updateOne(User);
+exports.deleteUser = factory.deleteOne(User);

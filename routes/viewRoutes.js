@@ -26,17 +26,39 @@ router.get(
   viewsController.getCreatePostForm
 );
 router.get('/post/:postId', authController.isLoggedIn, viewsController.getPost);
+
 router.get(
   '/editPost/:postId',
   authController.protect,
-  authController.restrictTo('lessor'),
+  authController.restrictTo('lessor', 'admin'),
   viewsController.getEditPostForm
 );
 router.get(
   '/deletePost/:postId',
   authController.protect,
-  authController.restrictTo('lessor'),
+  authController.restrictTo('lessor', 'admin'),
   viewsController.deletePostForm
+);
+
+router.get(
+  '/allUsers',
+  authController.protect,
+  authController.restrictTo('admin'),
+  viewsController.getAllUsers
+);
+
+router.get(
+  '/editUser/:userId',
+  authController.protect,
+  authController.restrictTo('admin'),
+  viewsController.getEditUserForm
+);
+
+router.get(
+  '/deleteUser/:userId',
+  authController.protect,
+  authController.restrictTo('admin'),
+  viewsController.getDeleteUserStatus
 );
 
 module.exports = router;

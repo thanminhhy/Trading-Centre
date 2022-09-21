@@ -19,14 +19,14 @@ router
   .route('/:id')
   .patch(
     authController.protect,
-    authController.restrictTo('lessor'),
+    authController.restrictTo('lessor', 'admin'),
     postController.uploadPostImages,
     postController.resizePostImages,
     postController.editPost
   )
   .delete(
     authController.protect,
-    authController.restrictTo('lessor'),
+    authController.restrictTo('lessor', 'admin'),
     postController.deletePost
   );
 

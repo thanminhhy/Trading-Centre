@@ -1,5 +1,6 @@
 /* eslint-disable*/
 const Post = require('../models/postModel');
+const User = require('../models/userModel');
 const AppError = require('../Utils/appError');
 const catchAsync = require('../Utils/catchAsync');
 const { promisify } = require('util');
@@ -27,7 +28,7 @@ exports.getLoginForm = (req, res) => {
 
 exports.getOverview = catchAsync(async (req, res) => {
   const posts = await Post.find();
-  console.log(posts);
+
   res.status(200).render('overview', {
     title: 'Home Page',
     posts,
@@ -129,8 +130,41 @@ exports.deletePostForm = catchAsync(async (req, res, next) => {
     return next(new AppError('There is no post with that id.', 404));
   }
 
-  res.status(200).render('deletePost', {
+  res.status(200).render('deleteForm', {
     title: `Delete ${post.title}`,
     post,
+  });
+});
+
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find().select('+status');
+
+  res.status(200).render('userManagement', {
+    title: 'All Users',
+    users,
+  });
+});
+
+exports.getEditUserForm = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ _id: req.params.userId }).select('+status');
+  const userId = req.params.userId;
+  console.log(user);
+  res.status(200).render('editUser', {
+    title: 'Edit User',
+    user,
+    userId,
+  });
+});
+
+exports.getDeleteUserStatus = catchAsync(async (req, res, next) => {
+  const userForDelete = await User.findOne({ _id: req.params.userId });
+  if (!userForDelete) return new AppError('There is no user with that ID!');
+
+  const userForDeleteId = req.params.userId;
+
+  res.status(200).render('deleteForm', {
+    title: `Delete ${userForDelete.name} Profile`,
+    userForDelete,
+    userForDeleteId,
   });
 });

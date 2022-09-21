@@ -24,6 +24,20 @@ router.patch(
 );
 
 router.post('/forgotPassword', authController.forgotPassword);
+
 router.patch('/resetPassword/:token', authController.resetPassword);
+
+router
+  .route('/:id')
+  .patch(
+    authController.protect,
+    authController.restrictTo('admin'),
+    userController.updateUser
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin'),
+    userController.deleteUser
+  );
 
 module.exports = router;
