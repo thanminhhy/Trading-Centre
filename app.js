@@ -113,6 +113,6 @@ app.all('*', (req, res, next) => {
 });
 
 // app.rawListeners();
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 module.exports = app;

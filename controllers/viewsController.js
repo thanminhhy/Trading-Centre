@@ -178,15 +178,14 @@ exports.getMessagesPage = catchAsync(async (req, res, next) => {
 
   const userId = req.user.id;
   const conversation = await Conversation.findOne({ _id: conversationId });
-  conversation.participants.forEach((el) => {
-    if (userId !== el) {
-      return new AppError('There is no message with this ID ', 404);
-    } else {
-      res.status(200).render(`${__dirname}/../views/chatbox/baseChat.pug`, {
-        messages,
-        moment: require('moment'),
-        conversationId,
-      });
-    }
+
+  if (!conversation.participants.includes(userId)) {
+    return next(new AppError('There is no messages with the ID', 404));
+  }
+
+  res.status(200).render(`${__dirname}/../views/chatbox/baseChat.pug`, {
+    messages,
+    moment: require('moment'),
+    conversationId,
   });
 });
