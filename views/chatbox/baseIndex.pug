@@ -1,0 +1,31 @@
+doctype html
+html 
+  head
+    block head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='`  width=device-width, initial-scale=1.0' )
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    title Trading Centre | #{title}
+    link(rel='stylesheet' href='../css/chatStyle.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css' integrity='sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=' crossorigin='anonymous')
+
+  .join-container
+  header.join-header
+    h1
+      i.fas.fa-smile
+      |  ChatCord
+  main.join-main
+    form.form.form--message
+      .form-control
+        label(for='username') Username
+        input#username(type='text' name='username' placeholder='Enter username...' required='')
+      .form-control
+        label(for='room') Room
+        select#room(name='room')
+          option(value='JavaScript') JavaScript
+          option(value='Python') Python
+          option(value='PHP') PHP
+          option(value='C#') C#
+          option(value='Ruby') Ruby
+          option(value='Java') Java
+      button.btn(type='submit') Join Chat

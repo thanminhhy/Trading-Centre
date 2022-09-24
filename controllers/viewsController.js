@@ -1,10 +1,13 @@
 /* eslint-disable*/
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Conversation = require('../models/conversationModel');
+const Message = require('../models/messageModel');
 const AppError = require('../Utils/appError');
 const catchAsync = require('../Utils/catchAsync');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const pug = require('pug');
 
 exports.getSignUpForm = (req, res, next) => {
   if (req.cookies.jwt) {
@@ -166,5 +169,24 @@ exports.getDeleteUserStatus = catchAsync(async (req, res, next) => {
     title: `Delete ${userForDelete.name} Profile`,
     userForDelete,
     userForDeleteId,
+  });
+});
+
+exports.getMessagesPage = catchAsync(async (req, res, next) => {
+  const conversationId = req.params.conversationId;
+  const messages = await Message.find({ conversationId });
+
+  const userId = req.user.id;
+  const conversation = await Conversation.findOne({ _id: conversationId });
+  conversation.participants.forEach((el) => {
+    if (userId !== el) {
+      return new AppError('There is no message with this ID ', 404);
+    } else {
+      res.status(200).render(`${__dirname}/../views/chatbox/baseChat.pug`, {
+        messages,
+        moment: require('moment'),
+        conversationId,
+      });
+    }
   });
 });

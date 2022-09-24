@@ -61,4 +61,10 @@ router.get(
   viewsController.getDeleteUserStatus
 );
 
+router.get(
+  '/messages/:conversationId',
+  authController.protect,
+  viewsController.getMessagesPage
+);
+
 module.exports = router;
