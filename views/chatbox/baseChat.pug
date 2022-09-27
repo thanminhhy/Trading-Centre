@@ -7,46 +7,76 @@ html
     title Trading Centre | #{title}
     link(rel='stylesheet' href='../css/chatStyle.css')
     link(rel='shortcut icon' type='/image/png' href='../img/favicon.png')
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css' integrity='sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=' crossorigin='anonymous')
+    // Bootstrap
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
+    // Font awesome
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css')
 
-  .chat-container
-  header.chat-header
-    h1
-      i.fas.fa-smile
-      |  Chat
-    a.btn(href='index.html') Leave Room
-    input#user.form-control(type='hidden', name='user', value=user)
-    input#conversationId.form-control(type='hidden', name='conversationId', value=conversationId)
-  main.chat-main
-    .chat-sidebar
-      h3
-        i.fas.fa-comments
-        |  Room Name:
-      h2#room-name JavaScript
-      h3
-        i.fas.fa-users
-        |  Users
-      ul#users
-    .chat-messages
-      each message in messages
-        .message
-          p.meta
-            span= `${message.sender.name}` 
-            | 
-            span= `${moment(message.createdAt).format('h:mm a')}`
-          p.text
-            | 
-            span= `${message.message}`
+.container-fluid.h-100
+  input#user.form-control(type='hidden', name='user', value=user)
+  input#conversationId.form-control(type='hidden', name='conversationId', value=conversationId)
+  .row.justify-content-center.h-100
+    .col-md-4.col-xl-3.chat
+      .card.mb-sm-3.mb-md-0.contacts_card
+        .card-header
+          .input-group
+            input.form-control.search(type='text' placeholder='Search...' name='')
+            .input-group-prepend
+              span.input-group-text.search_btn
+                i.fas.fa-search
+        .card-body.contacts_body
+          ui.contacts
+            li.active
+              .d-flex.bd-highlight
+                .img_cont
+                  img.rounded-circle.user_img(src=`../img/users/${receiver.photo}`)
+                  span.online_icon
+                .user_info
+                  span= receiver.name
+                  p Online
+        .card-footer
+    .col-md-8.col-xl-6.chat
+      .card
+        .card-header.msg_head
+          .d-flex.bd-highlight
+            .img_cont
+              img.rounded-circle.user_img(src=`../img/users/${receiver.photo}`)
+              span.online_icon
+            .user_info
+              span= receiver.name
+              p 1767 Messages
+            .video_cam
+              span
+                i.fas.fa-video
+              span
+                i.fas.fa-phone
 
-  .chat-form-container
-    form#chat-form
-      input#msg(type='text' placeholder='Enter Message' required='' autocomplete='off')
-      button.btn
-        i.fas.fa-paper-plane
-        |  Send
-
+        .chat-messages.card-body.msg_card_body
+          each message in messages
+            .message
+              p.meta
+                span= `${message.sender.name}` 
+                span 
+                span | 
+                span= `${moment(message.createdAt).format('h:mm a')}`
+              p.text
+                img.rounded-circle.user_img_msg(src=`../img/users/${message.sender.photo}`)
+                | 
+                span= `${message.message}`
+                
+        .card-footer
+          form#chat-form
+            .input-group
+              .input-group-append
+                span.input-group-text.attach_btn
+                  i.fas.fa-paperclip
+              input#msg.form-control.type_msg(name='' placeholder='Type your message...')
+              .input-group-append
+                span.input-group-text.send_btn
+                  i.fas.fa-location-arrow
+// JQuery
+script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js')
-script(src='https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.0/qs.min.js' integrity='sha512-/l6vieC+YxaZywUhmqs++8uF9DeMvJE61ua5g+UK0TuHZ4TkTgB1Gm1n0NiA86uEOM9JJ6JUwyR0hboKO0fCng==' crossorigin='anonymous' referrerpolicy='no-referrer')
 script(src='/socket.io/socket.io.js')
 script(src='../js/messages.js')
 

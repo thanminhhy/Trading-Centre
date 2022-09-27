@@ -23,8 +23,7 @@ io.on('connection', (socket) => {
   //Listen for chat message
   socket.on('chatMessage', (msg, user) => {
     // const user = getCurrentUser(socket.id);
-
-    io.emit('message', formatMessage(user.name, msg));
+    io.emit('message', formatMessage(user.name, msg), user);
   });
 });
 

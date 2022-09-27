@@ -183,9 +183,13 @@ exports.getMessagesPage = catchAsync(async (req, res, next) => {
     return next(new AppError('There is no messages with the ID', 404));
   }
 
+  const receiverId = conversation.participants.find((user) => user !== userId);
+  const receiver = await User.findOne({ _id: receiverId });
+
   res.status(200).render(`${__dirname}/../views/chatbox/baseChat.pug`, {
     messages,
     moment: require('moment'),
     conversationId,
+    receiver,
   });
 });

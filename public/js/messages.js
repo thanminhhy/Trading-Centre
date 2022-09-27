@@ -7,11 +7,11 @@ const chatForm = document.getElementById('chat-form');
 const socket = io();
 
 //Message from server
-socket.on('message', (message) => {
-  console.log(message);
-  outputMessage(message);
+socket.on('message', (message, user) => {
+  outputMessage(message, user);
+  // document.location.reload(true);
+  // //Scroll down
 
-  //Scroll down
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
@@ -34,13 +34,22 @@ chatForm.addEventListener('submit', (e) => {
 });
 
 //Output message to DOM
-function outputMessage(message) {
+function outputMessage(message, user) {
   const div = document.createElement('div');
+
   div.classList.add('message');
-  div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
+
+  div.innerHTML = `
+  <p class="meta">
+  <span>${message.username}</span> 
+  <span> | </span> 
+  <span>${message.time}</span>
+  </p>
   <p class="text">
-    ${message.text}
+    <img class="rounded-circle user_img_msg" src="../img/users/${user.photo}">
+    <span>${message.text}</span>
   </p>`;
+
   document.querySelector('.chat-messages').appendChild(div);
 }
 

@@ -14,7 +14,7 @@ const messageSchema = new mongoose.Schema(
 );
 
 messageSchema.pre(/^find/, function (next) {
-  this.populate({ path: 'sender', select: 'name' });
+  this.populate({ path: 'sender', select: 'name photo' });
   next();
 });
 
