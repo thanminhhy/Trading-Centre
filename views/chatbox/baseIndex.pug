@@ -29,7 +29,7 @@ html
         .card-body.contacts_body
           each receiver in receivers
             a.img(href=`/messages/${receiver.conversationId}`)
-              ui.contacts
+              ui.contacts.receiver
                 li
                   .d-flex.bd-highlight
                     .img_cont

@@ -14,6 +14,26 @@ socket.on('message', (message, user) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
+//search User
+if (searchForm) {
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = e.target.elements.search.value.toLocaleLowerCase();
+
+    const receivers = document.querySelectorAll('.receiver');
+
+    for (var i = 0; i < receivers.length; i++) {
+      const receiver = receivers[i].textContent.toLocaleLowerCase();
+      if (receiver.includes(value)) {
+        receivers[i].style.display = '';
+      } else {
+        receivers[i].style.display = 'none';
+      }
+    }
+    console.log(value);
+  });
+}
+
 // Message submit
 if (chatForm)
   chatForm.addEventListener('submit', (e) => {

@@ -19,21 +19,21 @@ html
     .col-md-4.col-xl-3.chat
       .card.mb-sm-3.mb-md-0.contacts_card
         .card-header
-          .input-group
-            input.form-control.search(type='text' placeholder='Search...' name='')
-            .input-group-prepend
-              span.input-group-text.search_btn
-                i.fas.fa-search
+          form#search-user
+            .input-group
+              input#search.form-control.search(type='text' placeholder='Search...' name='')
+              .input-group-prepend
+                span.input-group-text.search_btn
         .card-body.contacts_body
           each receiver in receivers
             a.img(href=`${receiver.conversationId}`)
-              ui.contacts
+              ui.contacts.receiver
                 li(class=(receiver.conversationId.toString() === conversationId.toString() ? 'active' : ''))
                   .d-flex.bd-highlight
                     .img_cont
                       img.rounded-circle.user_img(src=`../img/users/${receiver.user.photo}`)
                     .user_info
-                      span= receiver.user.name
+                      h5(style='color: white')= receiver.user.name
         .card-footer
     .col-md-8.col-xl-6.chat
       .card
