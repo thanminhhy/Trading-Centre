@@ -172,11 +172,69 @@ exports.getDeleteUserStatus = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getChatBox = catchAsync(async (req, res, next) => {
+  const userId = req.user._id.toString();
+  const conversations = await Conversation.find();
+  const curConversations = [];
+  const allUserIds = [];
+  const allUsers = [];
+
+  conversations.forEach((conversation) => {
+    conversation.participants.some((userid) => {
+      if (userid === userId) curConversations.push(conversation);
+    });
+  });
+  curConversations.forEach((conversation) => {
+    conversation.participants.forEach((userid) => {
+      if (userid !== userId) allUserIds.push(userid);
+    });
+  });
+
+  await Promise.all(
+    allUserIds.map(async (userid, i) => {
+      const user = await User.findOne({ _id: userid }, { name: 1, photo: 1 });
+      const data = { conversationId: curConversations[i]._id, user };
+      allUsers.push(data);
+    })
+  );
+
+  console.log(allUsers);
+  res.status(200).render(`${__dirname}/../views/chatbox/baseIndex.pug`, {
+    receivers: allUsers,
+    title: 'Messages',
+    moment: require('moment'),
+  });
+});
+
 exports.getMessagesPage = catchAsync(async (req, res, next) => {
+  const userId = req.user._id.toString();
+  const conversations = await Conversation.find();
+  const curConversations = [];
+  const allUserIds = [];
+  const allUsers = [];
+
+  conversations.forEach((conversation) => {
+    conversation.participants.some((userid) => {
+      if (userid === userId) curConversations.push(conversation);
+    });
+  });
+  curConversations.forEach((conversation) => {
+    conversation.participants.forEach((userid) => {
+      if (userid !== userId) allUserIds.push(userid);
+    });
+  });
+
+  await Promise.all(
+    allUserIds.map(async (userid, i) => {
+      const user = await User.findOne({ _id: userid }, { name: 1, photo: 1 });
+      const data = { conversationId: curConversations[i]._id, user };
+      allUsers.push(data);
+    })
+  );
+
   const conversationId = req.params.conversationId;
   const messages = await Message.find({ conversationId });
 
-  const userId = req.user.id;
   const conversation = await Conversation.findOne({ _id: conversationId });
 
   if (!conversation.participants.includes(userId)) {
@@ -187,9 +245,11 @@ exports.getMessagesPage = catchAsync(async (req, res, next) => {
   const receiver = await User.findOne({ _id: receiverId });
 
   res.status(200).render(`${__dirname}/../views/chatbox/baseChat.pug`, {
+    title: 'Messages',
     messages,
     moment: require('moment'),
     conversationId,
     receiver,
+    receivers: allUsers,
   });
 });

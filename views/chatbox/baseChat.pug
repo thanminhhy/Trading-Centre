@@ -25,15 +25,15 @@ html
               span.input-group-text.search_btn
                 i.fas.fa-search
         .card-body.contacts_body
-          ui.contacts
-            li.active
-              .d-flex.bd-highlight
-                .img_cont
-                  img.rounded-circle.user_img(src=`../img/users/${receiver.photo}`)
-                  span.online_icon
-                .user_info
-                  span= receiver.name
-                  p Online
+          each receiver in receivers
+            a.img(href=`${receiver.conversationId}`)
+              ui.contacts
+                li.active
+                  .d-flex.bd-highlight
+                    .img_cont
+                      img.rounded-circle.user_img(src=`../img/users/${receiver.user.photo}`)
+                    .user_info
+                      span= receiver.user.name
         .card-footer
     .col-md-8.col-xl-6.chat
       .card
@@ -41,10 +41,8 @@ html
           .d-flex.bd-highlight
             .img_cont
               img.rounded-circle.user_img(src=`../img/users/${receiver.photo}`)
-              span.online_icon
             .user_info
               span= receiver.name
-              p 1767 Messages
             .video_cam
               span
                 i.fas.fa-video
@@ -58,7 +56,7 @@ html
                 span= `${message.sender.name}` 
                 span 
                 span | 
-                span= `${moment(message.createdAt).format('h:mm a')}`
+                span= `${moment(message.createdAt).format('MMMM DD, h:mm a')}`
               p.text
                 img.rounded-circle.user_img_msg(src=`../img/users/${message.sender.photo}`)
                 | 
@@ -67,9 +65,6 @@ html
         .card-footer
           form#chat-form
             .input-group
-              .input-group-append
-                span.input-group-text.attach_btn
-                  i.fas.fa-paperclip
               input#msg.form-control.type_msg(name='' placeholder='Type your message...')
               .input-group-append
                 span.input-group-text.send_btn

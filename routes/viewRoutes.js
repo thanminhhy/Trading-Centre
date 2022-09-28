@@ -61,6 +61,8 @@ router.get(
   viewsController.getDeleteUserStatus
 );
 
+router.get('/messages', authController.protect, viewsController.getChatBox);
+
 router.get(
   '/messages/:conversationId',
   authController.protect,
