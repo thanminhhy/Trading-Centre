@@ -1,8 +1,7 @@
 /* eslint-disable*/
 const chatMessages = document.querySelector('.chat-messages');
 const chatForm = document.getElementById('chat-form');
-
-//Get messageID from url
+const searchForm = document.getElementById('search-user');
 
 const socket = io();
 
@@ -16,22 +15,23 @@ socket.on('message', (message, user) => {
 });
 
 // Message submit
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  //get message text
-  const msg = e.target.elements.msg.value;
-  const user = JSON.parse(document.getElementById('user').value);
-  const conversationId = document.getElementById('conversationId').value;
+if (chatForm)
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    //get message text
+    const msg = e.target.elements.msg.value;
+    const user = JSON.parse(document.getElementById('user').value);
+    const conversationId = document.getElementById('conversationId').value;
 
-  addMessage(conversationId, user._id, msg);
+    addMessage(conversationId, user._id, msg);
 
-  // Emit message to server
-  socket.emit('chatMessage', msg, user);
+    // Emit message to server
+    socket.emit('chatMessage', msg, user);
 
-  // Clear input
-  e.target.elements.msg.value = '';
-  e.target.elements.msg.focus;
-});
+    // Clear input
+    e.target.elements.msg.value = '';
+    e.target.elements.msg.focus;
+  });
 
 //Output message to DOM
 function outputMessage(message, user) {

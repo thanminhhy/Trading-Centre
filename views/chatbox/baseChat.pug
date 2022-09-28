@@ -28,7 +28,7 @@ html
           each receiver in receivers
             a.img(href=`${receiver.conversationId}`)
               ui.contacts
-                li.active
+                li(class=(receiver.conversationId.toString() === conversationId.toString() ? 'active' : ''))
                   .d-flex.bd-highlight
                     .img_cont
                       img.rounded-circle.user_img(src=`../img/users/${receiver.user.photo}`)

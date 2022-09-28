@@ -198,7 +198,6 @@ exports.getChatBox = catchAsync(async (req, res, next) => {
     })
   );
 
-  console.log(allUsers);
   res.status(200).render(`${__dirname}/../views/chatbox/baseIndex.pug`, {
     receivers: allUsers,
     title: 'Messages',

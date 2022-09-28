@@ -18,8 +18,6 @@ const app = require('./app');
 const server = http.createServer(app);
 const io = socketio(server);
 
-let users = [];
-
 // Run when client connect
 io.on('connection', (socket) => {
   //Listen for chat message

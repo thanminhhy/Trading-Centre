@@ -12,6 +12,10 @@ html {
   margin-bottom: auto;
 }
 
+.hide {
+  display: none;
+}
+
 .card {
   height: 500px;
   border-radius: 15px !important;
