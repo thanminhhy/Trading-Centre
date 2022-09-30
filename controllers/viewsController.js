@@ -1,7 +1,6 @@
 /* eslint-disable*/
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
-const { v4: uuidV4 } = require('uuid');
 const Conversation = require('../models/conversationModel');
 const Message = require('../models/messageModel');
 const AppError = require('../Utils/appError');
@@ -254,12 +253,16 @@ exports.getMessagesPage = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createVideoCall = (req, res) => {
-  res.redirect(`/videoCall/${uuidV4()}`);
-};
+exports.joinVideoCall = catchAsync(async (req, res, next) => {
+  conversationId = req.params.roomId;
+  const userId = req.user._id.toString();
 
-exports.joinVideoCall = (req, res) => {
+  const conversation = await Conversation.findOne({ _id: conversationId });
+
+  if (!conversation.participants.includes(userId)) {
+    return next(new AppError('There is no video with the ID', 404));
+  }
   res.render(`${__dirname}/../views/chatbox/baseVideo.pug`, {
     roomId: req.params.room,
   });
-};
+});

@@ -70,12 +70,6 @@ router.get(
 );
 
 router.get(
-  '/videoCall',
-  authController.protect,
-  viewsController.createVideoCall
-);
-
-router.get(
   '/videoCall/:roomId',
   authController.protect,
   viewsController.joinVideoCall
