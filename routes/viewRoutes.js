@@ -69,4 +69,16 @@ router.get(
   viewsController.getMessagesPage
 );
 
+router.get(
+  '/videoCall',
+  authController.protect,
+  viewsController.createVideoCall
+);
+
+router.get(
+  '/videoCall/:roomId',
+  authController.protect,
+  viewsController.joinVideoCall
+);
+
 module.exports = router;

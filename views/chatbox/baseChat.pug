@@ -45,9 +45,7 @@ html
               span= receiver.name
             .video_cam
               span
-                i.fas.fa-video
-              span
-                i.fas.fa-phone
+                a(href=`/videoCall/${conversationId}`).fas.fa-video
 
         .chat-messages.card-body.msg_card_body
           each message in messages

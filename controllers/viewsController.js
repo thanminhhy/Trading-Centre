@@ -1,6 +1,7 @@
 /* eslint-disable*/
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const { v4: uuidV4 } = require('uuid');
 const Conversation = require('../models/conversationModel');
 const Message = require('../models/messageModel');
 const AppError = require('../Utils/appError');
@@ -252,3 +253,13 @@ exports.getMessagesPage = catchAsync(async (req, res, next) => {
     receivers: allUsers,
   });
 });
+
+exports.createVideoCall = (req, res) => {
+  res.redirect(`/videoCall/${uuidV4()}`);
+};
+
+exports.joinVideoCall = (req, res) => {
+  res.render(`${__dirname}/../views/chatbox/baseVideo.pug`, {
+    roomId: req.params.room,
+  });
+};

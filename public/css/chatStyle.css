@@ -112,6 +112,9 @@ html {
   border: 1.5px solid #f5f6fa;
 }
 
+a.fas.fa-video {
+  color: white;
+}
 .user_img_msg {
   height: 40px;
   width: 40px;

@@ -25,6 +25,15 @@ io.on('connection', (socket) => {
     // const user = getCurrentUser(socket.id);
     io.emit('message', formatMessage(user.name, msg), user);
   });
+
+  //listen for video call
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId);
+    socket.to(roomId).emit('user-connected', userId);
+    socket.on('disconnect', () => {
+      socket.to(roomId).emit('user-disconnected', userId);
+    });
+  });
 });
 
 const DB = process.env.DATABASE.replace(
