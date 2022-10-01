@@ -260,9 +260,54 @@ exports.joinVideoCall = catchAsync(async (req, res, next) => {
   const conversation = await Conversation.findOne({ _id: conversationId });
 
   if (!conversation.participants.includes(userId)) {
-    return next(new AppError('There is no video with the ID', 404));
+    return next(new AppError('There is no video call with the ID', 404));
   }
   res.render(`${__dirname}/../views/chatbox/baseVideo.pug`, {
     roomId: req.params.room,
   });
+});
+
+exports.checkChatBox = catchAsync(async (req, res, next) => {
+  const curUserId = req.user.id;
+  const lessorId = req.params.lessorId;
+  const myArray = [curUserId, lessorId];
+  let existConversation = true;
+  const conversations = await Conversation.find();
+  let curConversation;
+
+  const checkExistConversation = function (exist) {
+    conversations.forEach((conversation) => {
+      ////Solution 1
+      ////Using indexOf, it will return -1 if it found nothing match condition from the array
+      // if (
+      //   conversation.participants.length === myArray.length &&
+      //   conversation.participants.every((el) => myArray.indexOf(el) > -1)
+      // ) {
+      //   console.log('pass');
+      // }
+
+      //Solution 2
+      existConversation = myArray.every((userId) => {
+        return conversation.participants.includes(userId);
+      });
+      if (exist) {
+        if (existConversation) {
+          curConversation = conversation;
+        }
+      }
+    });
+  };
+
+  checkExistConversation(false);
+
+  if (!existConversation || conversations.length === 0) {
+    const conversation = await Conversation.create({
+      participants: [lessorId, curUserId],
+    });
+    if (conversation) return res.redirect(`/messages/${conversation.id}`);
+  }
+
+  checkExistConversation(true);
+
+  res.redirect(`/messages/${curConversation._id}`);
 });

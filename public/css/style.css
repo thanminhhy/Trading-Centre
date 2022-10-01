@@ -447,6 +447,11 @@ button.btn.btn--red {
   color: white;
 }
 
+button.btn.btn--chat {
+  background-color: rgba(20, 180, 164, 0.411);
+  color: white;
+}
+
 .description-box .description {
   margin-right: 5rem;
 }
@@ -462,6 +467,11 @@ button.btn.btn--red {
 }
 
 .delete__button {
+  margin-left: 14px;
+  text-decoration: none;
+}
+
+.chat__button {
   margin-left: 14px;
   text-decoration: none;
 }

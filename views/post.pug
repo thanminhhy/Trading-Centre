@@ -28,6 +28,8 @@ block content
           -if(!user || user.id !== post.lessor.id && user.role !== 'admin')
             a.buy__button(href='/')
               button.btn.btn--green Buy
+            a#chatButton.chat__button(href=`/checkChatBox/${post.lessor.id}`)
+              button.btn.btn--chat Chat
           -else if(user.role === 'admin' || user.id === post.lessor.id  )
             a.edit__button(href= `/editPost/${[post.id]}`) 
               button.btn.btn--green Edit

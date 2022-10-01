@@ -75,4 +75,10 @@ router.get(
   viewsController.joinVideoCall
 );
 
+router.get(
+  '/checkChatBox/:lessorId',
+  authController.protect,
+  viewsController.checkChatBox
+);
+
 module.exports = router;
