@@ -81,4 +81,10 @@ router.get(
   viewsController.checkChatBox
 );
 
+router.get(
+  '/lessorPosts/:lessorId',
+  authController.protect,
+  viewsController.getLessorPostsPage
+);
+
 module.exports = router;

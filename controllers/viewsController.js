@@ -39,13 +39,7 @@ exports.getOverview = catchAsync(async (req, res) => {
 });
 
 exports.getMyPosts = catchAsync(async (req, res, next) => {
-  //get token from cookies
-  const token = req.cookies.jwt;
-
-  //decode the token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-
-  const posts = await Post.find({ lessor: decoded.id });
+  const posts = await Post.find({ lessor: req.user._id });
 
   res.status(200).render('myPosts', {
     title: 'My Posts',
@@ -310,4 +304,14 @@ exports.checkChatBox = catchAsync(async (req, res, next) => {
   checkExistConversation(true);
 
   res.redirect(`/messages/${curConversation._id}`);
+});
+
+exports.getLessorPostsPage = catchAsync(async (req, res, next) => {
+  const posts = await Post.find({ lessor: req.params.lessorId });
+  const lessor = await User.findById(req.params.lessorId);
+
+  res.status(200).render('lessorPosts', {
+    title: `${lessor.name} Page`,
+    posts,
+  });
 });

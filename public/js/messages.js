@@ -5,6 +5,12 @@ const searchForm = document.getElementById('search-user');
 
 const socket = io();
 
+$(document).ready(function () {
+  $('#action_menu_btn').click(function () {
+    $('.action_menu').toggle();
+  });
+});
+
 //Message from server
 socket.on('message', (message, user) => {
   outputMessage(message, user);

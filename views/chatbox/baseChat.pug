@@ -46,6 +46,11 @@ html
             .video_cam
               span
                 a(href=`/videoCall/${conversationId}`).fas.fa-video
+          <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
+          .action_menu(style='display: none;')
+            ul
+                li
+                  a(href=`/lessorPosts/${receiver._id}`).fas.fa-user-circle  View Posts
 
         .chat-messages.card-body.msg_card_body
           each message in messages
