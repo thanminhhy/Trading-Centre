@@ -1,10 +1,16 @@
 const express = require('express');
 const viewsController = require('../controllers/viewsController');
+const purchaseController = require('../controllers/purchaseController');
 const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.get('/', authController.isLoggedIn, viewsController.getOverview);
+router.get(
+  '/',
+  purchaseController.createProductCheckout,
+  authController.isLoggedIn,
+  viewsController.getOverview
+);
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get('/verifyEmail/success', viewsController.renderUserStatus);
 router.get('/login', viewsController.getLoginForm);
@@ -17,6 +23,12 @@ router.get(
   authController.protect,
   authController.restrictTo('lessor'),
   viewsController.getMyPosts
+);
+
+router.get(
+  '/myPurchases',
+  authController.protect,
+  viewsController.getMyPurchases
 );
 
 router.get(

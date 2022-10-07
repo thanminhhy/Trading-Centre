@@ -1,6 +1,7 @@
 /* eslint-disable*/
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Purchase = require('../models/purchaseModel');
 const Conversation = require('../models/conversationModel');
 const Message = require('../models/messageModel');
 const AppError = require('../Utils/appError');
@@ -313,5 +314,19 @@ exports.getLessorPostsPage = catchAsync(async (req, res, next) => {
   res.status(200).render('lessorPosts', {
     title: `${lessor.name} Page`,
     posts,
+  });
+});
+
+exports.getMyPurchases = catchAsync(async (req, res, next) => {
+  const purchases = await Purchase.find({ user: req.user.id });
+
+  const postIDs = purchases.map((el) => el.tour);
+  const posts = await Post.find({ _id: { $in: postIDs } });
+
+  console.log(purchases);
+  res.status(200).render('myPurchase', {
+    title: 'My Purchases',
+    purchases,
+    moment: require('moment'),
   });
 });
