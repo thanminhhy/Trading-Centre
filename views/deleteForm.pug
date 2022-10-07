@@ -1,0 +1,18 @@
+extends base
+
+block content
+  main.main
+    -if(post)
+      .deletePost-form
+        h2.heading-secondary.ma-bt-lg Are you sure to delete #{post.title} Post
+        input#postId.form-control(type='hidden', name='postId', value=post.id)
+        form.form.form--deletePost
+          .form__group
+            button.btn.btn--green Yes
+    -if(userForDelete)
+      .deleteUser-form
+        h2.heading-secondary.ma-bt-lg Are you sure to delete #{userForDelete.name} Profile
+        input#userId.form-control(type='hidden', name='userId', value=userForDelete.id)
+        form.form.form--deleteUser
+          .form__group
+            button.btn.btn--green Yes
