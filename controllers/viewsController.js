@@ -328,3 +328,14 @@ exports.getMyPurchases = catchAsync(async (req, res, next) => {
     moment: require('moment'),
   });
 });
+
+exports.getAddReviewForm = catchAsync(async (req, res, next) => {
+  const postId = req.params.postId;
+  const userId = req.user.id;
+
+  res.status(200).render('addReview', {
+    title: 'Add Review',
+    postId,
+    userId,
+  });
+});
