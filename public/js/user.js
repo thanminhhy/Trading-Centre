@@ -1,7 +1,7 @@
 /* eslint-disable*/
 
 const editUserForm = document.querySelector('.form--editUser');
-const deleteUserForm = document.querySelector('.form--deleteUser');
+const deleteUserBtn = document.querySelectorAll('.delete-user');
 
 const deleteUser = async (userId) => {
   try {
@@ -90,12 +90,12 @@ if (editUserForm) {
   });
 }
 
-if (deleteUserForm) {
-  deleteUserForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+if (deleteUserBtn) {
+  deleteUserBtn.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const { userId } = e.target.dataset;
 
-    const userId = document.getElementById('userId').value;
-
-    deleteUser(userId);
+      deleteUser(userId);
+    });
   });
 }

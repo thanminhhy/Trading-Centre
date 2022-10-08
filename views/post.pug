@@ -32,8 +32,7 @@ block content
             a.edit__button(href= `/editPost/${[post.id]}`) 
               button.btn.btn--green Edit
 
-            a.delete__button(href= `/deletePost/${post.id}`) 
-              button.btn.btn--red Delete
+            button.btn.btn--red.delete__button#delete-post(data-post-id=`${post.id}`) Delete
 
 
     .description-box

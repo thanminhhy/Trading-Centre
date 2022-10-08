@@ -37,6 +37,6 @@ block content
               td= user.status
               td 
                 a(href=`/editUser/${user.id}`) Edit | 
-                a(href=`/deleteUser/${user.id}`) Delete
+                button.delete-user(data-user-id=`${user.id}`) Delete
               td 
                 img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')

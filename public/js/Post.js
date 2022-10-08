@@ -2,7 +2,7 @@
 
 const createPostForm = document.querySelector('.form--createPost');
 const editPostForm = document.querySelector('.form--editPost');
-const deletePostForm = document.querySelector('.form--deletePost');
+const deletePostBtn = document.getElementById('delete-post');
 
 const createPost = async (data) => {
   try {
@@ -95,10 +95,10 @@ if (editPostForm) {
   });
 }
 
-if (deletePostForm) {
-  deletePostForm.addEventListener('submit', (e) => {
+if (deletePostBtn) {
+  deletePostBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const postId = document.getElementById('postId').value;
+    const { postId } = e.target.dataset;
 
     deletePost(postId);
   });
