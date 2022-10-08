@@ -99,4 +99,10 @@ router.get(
   viewsController.getLessorPostsPage
 );
 
+router.get(
+  '/AddReview/:postId',
+  authController.protect,
+  viewsController.getAddReviewForm
+);
+
 module.exports = router;

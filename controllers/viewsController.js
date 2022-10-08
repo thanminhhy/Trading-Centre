@@ -93,7 +93,10 @@ exports.getCreatePostForm = (req, res) => {
 
 exports.getPost = catchAsync(async (req, res, next) => {
   //Get the data
-  const post = await Post.findOne({ _id: req.params.postId });
+  const post = await Post.findOne({ _id: req.params.postId }).populate({
+    path: 'reviews',
+    fields: 'review rating user',
+  });
 
   if (!post) {
     return next(new AppError('There is no post with that id.', 404));
@@ -319,11 +322,6 @@ exports.getLessorPostsPage = catchAsync(async (req, res, next) => {
 
 exports.getMyPurchases = catchAsync(async (req, res, next) => {
   const purchases = await Purchase.find({ user: req.user.id });
-
-  const postIDs = purchases.map((el) => el.tour);
-  const posts = await Post.find({ _id: { $in: postIDs } });
-
-  console.log(purchases);
   res.status(200).render('myPurchase', {
     title: 'My Purchases',
     purchases,

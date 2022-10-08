@@ -66,3 +66,21 @@ exports.getOne = (Model, popOptions) =>
       },
     });
   });
+
+exports.getAll = (Model) =>
+  catchAsync(async (req, res, next) => {
+    let filter = {};
+    if (req.params.postId) filter = { post: req.params.postId };
+
+    // const doc = await features.query.explain();
+    const doc = await Model.find(filter);
+
+    //send response
+    res.status(200).json({
+      status: 'sucess',
+      results: doc.length,
+      data: {
+        data: doc,
+      },
+    });
+  });

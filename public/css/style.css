@@ -903,18 +903,18 @@ button.btn.btn--chat {
     flex-direction: column;
   }
 }
-.nav--tours {
+.nav--posts {
   -webkit-box-flex: 0;
   -ms-flex: 0 1 40%;
   flex: 0 1 40%;
 }
 @media only screen and (max-width: 62.5em) {
-  .nav--tours {
+  .nav--posts {
     margin-bottom: 1.5rem;
   }
 }
 @media only screen and (max-width: 37.5em) {
-  .nav--tours {
+  .nav--posts {
     margin-bottom: 0;
   }
 }

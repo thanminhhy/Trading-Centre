@@ -67,6 +67,10 @@ exports.resizePostImages = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.getPost = factory.getOne(Post, { path: 'reviews' });
+
+exports.getAllPost = factory.getAll(Post);
+
 exports.createPost = factory.createOne(Post);
 
 exports.editPost = factory.updateOne(Post);

@@ -1,5 +1,5 @@
 extends base
-//- include _reviewCard
+include _reviewCard
 
 mixin overviewBox(label, text, icon)
   .overview-box__detail
@@ -35,22 +35,14 @@ block content
             a.delete__button(href= `/deletePost/${post.id}`) 
               button.btn.btn--red Delete
 
-        //- .overview-box__group
-        //-   h2.heading-secondary.ma-bt-lg Your post guides
-        //-   each guide in post.guides
-        //-     .overview-box__detail
-        //-       img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.name}`)
-        //-       - if(guide.role === 'lead-guide')
-        //-         span.overview-box__label Lead Guide 
-        //-       - if(guide.role ==='guide')
-        //-         span.overview-box__label Tour guide
-        //-       span.overview-box__text= guide.name
 
     .description-box
       h2.heading-secondary.ma-bt-lg= `About ${post.title}`
       - const paragraphs = post.description.split('\n')
       each p in paragraphs 
         p.description__text= p
+      a.review__button(href= `/AddReview/${[post.id]}`) 
+        button.btn.btn--green Review
 
   section.section-pictures
     each img, i in post.images 
@@ -60,7 +52,7 @@ block content
   //- section.section-map
   //-   #map(data-locations=`${JSON.stringify(post.locations)}`)
 
-  //- section.section-reviews
-  //-   .reviews
-  //-     each review in post.reviews
-  //-       +reviewCard(review)
+  section.section-reviews
+    .reviews
+      each review in post.reviews
+        +reviewCard(review)
