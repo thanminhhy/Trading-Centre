@@ -9,6 +9,7 @@ const catchAsync = require('../Utils/catchAsync');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const pug = require('pug');
+const Review = require('../models/reviewModel');
 
 exports.getSignUpForm = (req, res, next) => {
   if (req.cookies.jwt) {
@@ -124,19 +125,6 @@ exports.getEditPostForm = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deletePostForm = catchAsync(async (req, res, next) => {
-  const post = await Post.findOne({ _id: req.params.postId });
-
-  if (!post) {
-    return next(new AppError('There is no post with that id.', 404));
-  }
-
-  res.status(200).render('deleteForm', {
-    title: `Delete ${post.title}`,
-    post,
-  });
-});
-
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find().select('+status');
 
@@ -154,19 +142,6 @@ exports.getEditUserForm = catchAsync(async (req, res, next) => {
     title: 'Edit User',
     user,
     userId,
-  });
-});
-
-exports.getDeleteUserStatus = catchAsync(async (req, res, next) => {
-  const userForDelete = await User.findOne({ _id: req.params.userId });
-  if (!userForDelete) return new AppError('There is no user with that ID!');
-
-  const userForDeleteId = req.params.userId;
-
-  res.status(200).render('deleteForm', {
-    title: `Delete ${userForDelete.name} Profile`,
-    userForDelete,
-    userForDeleteId,
   });
 });
 
@@ -337,5 +312,21 @@ exports.getAddReviewForm = catchAsync(async (req, res, next) => {
     title: 'Add Review',
     postId,
     userId,
+  });
+});
+
+exports.getEditReviewForm = catchAsync(async (req, res, next) => {
+  const reviewId = req.params.reviewId;
+  const postId = req.params.postId;
+  const userId = req.user.id;
+  const review = await Review.findOne({ _id: reviewId });
+
+  console.log(review);
+  console.log(reviewId);
+
+  res.status(200).render('editReview', {
+    title: 'Edit Review',
+    review,
+    reviewId,
   });
 });

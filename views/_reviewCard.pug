@@ -9,6 +9,6 @@ mixin reviewCard(review)
         svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
           use(xlink:href='/img/icons.svg#icon-star')
     .review__button
-      a.edit__button(href= `/editPost/${[review.id]}`) 
+      a.edit__button(href= `/editReview/${[review.id]}`) 
         button.btn.btn--green Edit 
       button.btn.btn--red.delete__button#delete-review(data-review-id=`${review.id}`) Delete

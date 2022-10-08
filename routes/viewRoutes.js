@@ -45,12 +45,6 @@ router.get(
   authController.restrictTo('lessor', 'admin'),
   viewsController.getEditPostForm
 );
-router.get(
-  '/deletePost/:postId',
-  authController.protect,
-  authController.restrictTo('lessor', 'admin'),
-  viewsController.deletePostForm
-);
 
 router.get(
   '/allUsers',
@@ -64,13 +58,6 @@ router.get(
   authController.protect,
   authController.restrictTo('admin'),
   viewsController.getEditUserForm
-);
-
-router.get(
-  '/deleteUser/:userId',
-  authController.protect,
-  authController.restrictTo('admin'),
-  viewsController.getDeleteUserStatus
 );
 
 router.get('/messages', authController.protect, viewsController.getChatBox);
@@ -103,6 +90,12 @@ router.get(
   '/AddReview/:postId',
   authController.protect,
   viewsController.getAddReviewForm
+);
+
+router.get(
+  '/editReview/:reviewId',
+  authController.protect,
+  viewsController.getEditReviewForm
 );
 
 module.exports = router;

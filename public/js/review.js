@@ -1,6 +1,7 @@
 /* eslint-disable*/
 
 const addReviewForm = document.querySelector('.form--addReview');
+const editReviewForm = document.querySelector('.form--editReview');
 const deleteReviewBtn = document.getElementById('delete-review');
 
 const addReview = async (review, rating, userId, postId) => {
@@ -12,6 +13,24 @@ const addReview = async (review, rating, userId, postId) => {
     });
     if (res.data.status === 'success') {
       showAlert('success', 'Add Review Successfully!');
+      window.setTimeout(() => {
+        location.assign(`/post/${postId}`);
+      }, 1500);
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};
+
+const editReview = async (review, rating, reviewId, postId) => {
+  try {
+    const res = await axios({
+      method: 'PATCH',
+      url: `/api/reviews/${reviewId}`,
+      data: { review, rating },
+    });
+    if (res.data.status === 'success') {
+      showAlert('success', 'Edit Review successfully!');
       window.setTimeout(() => {
         location.assign(`/post/${postId}`);
       }, 1500);
@@ -57,5 +76,17 @@ if (addReviewForm) {
     const postId = document.getElementById('postId').value;
 
     addReview(review, rating, userId, postId);
+  });
+}
+
+if (editReviewForm) {
+  editReviewForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const review = document.getElementById('review').value;
+    const rating = document.getElementById('rating').value;
+    const reviewId = document.getElementById('reviewId').value;
+    const postId = document.getElementById('postid').value;
+
+    editReview(review, rating, reviewId, postId);
   });
 }
