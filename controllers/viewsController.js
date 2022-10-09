@@ -98,15 +98,39 @@ exports.getPost = catchAsync(async (req, res, next) => {
     path: 'reviews',
     fields: 'review rating user',
   });
+  const userId = req.user.id;
+  const purchases = await Purchase.find({ user: req.user.id });
+  let isReview = false;
+  let isPay = false;
 
   if (!post) {
     return next(new AppError('There is no post with that id.', 404));
   }
 
+  purchases.forEach((purchase) => {
+    if (
+      purchase.post.id === post.id &&
+      purchase.user._id.toString() === userId
+    ) {
+      isPay = true;
+    }
+  });
+
+  post.reviews.forEach((review) => {
+    if (
+      review.user.id === userId &&
+      review.post.toString() === post.id.toString()
+    ) {
+      isReview = true;
+    }
+  });
+
   //Render template
   res.status(200).render('post', {
     title: `${post.title}`,
     post,
+    isReview,
+    isPay,
   });
 });
 
@@ -320,9 +344,6 @@ exports.getEditReviewForm = catchAsync(async (req, res, next) => {
   const postId = req.params.postId;
   const userId = req.user.id;
   const review = await Review.findOne({ _id: reviewId });
-
-  console.log(review);
-  console.log(reviewId);
 
   res.status(200).render('editReview', {
     title: 'Edit Review',

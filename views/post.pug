@@ -25,7 +25,7 @@ block content
           +overviewBox('Owner', `${post.lessor.name}`, 'user')
           //- +overviewBox('Rating', `${post.ratingsAverage} / 5`, 'star')
           -if(!user || user.id !== post.lessor.id && user.role !== 'admin')
-            button.btn.btn--green#buy-product(data-post-id=`${post.id}`) Buy
+            button.btn.btn--green#buy-product(data-post-id=`${post.id}`) Rent
             a#chatButton.chat__button(href=`/checkChatBox/${post.lessor.id}`)
               button.btn.btn--chat Chat
           -else if(user.role === 'admin' || user.id === post.lessor.id  )
@@ -40,8 +40,9 @@ block content
       - const paragraphs = post.description.split('\n')
       each p in paragraphs 
         p.description__text= p
-      a.review__button(href= `/AddReview/${[post.id]}`) 
-        button.btn.btn--green Review
+      -if(isPay && !isReview)
+        a.review__button(href= `/AddReview/${[post.id]}`) 
+          button.btn.btn--green Review
 
   section.section-pictures
     each img, i in post.images 
