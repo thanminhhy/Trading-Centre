@@ -124,7 +124,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
       isReview = true;
     }
   });
-
+  console.log(post.reviews);
   //Render template
   res.status(200).render('post', {
     title: `${post.title}`,

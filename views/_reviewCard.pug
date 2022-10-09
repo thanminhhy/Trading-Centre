@@ -8,7 +8,8 @@ mixin reviewCard(review)
       each star in [1,2,3,4,5]
         svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
           use(xlink:href='/img/icons.svg#icon-star')
-    .review__button
-      a.edit__button(href= `/editReview/${[review.id]}`) 
-        button.btn.btn--green Edit 
-      button.btn.btn--red.delete__button#delete-review(data-review-id=`${review.id}`) Delete
+    -if(user.role === 'admin' || user.id === review.user.id)
+      .review__button
+        a.edit__button(href= `/editReview/${[review.id]}`) 
+          button.btn.btn--green Edit 
+        button.btn.btn--red.delete__button#delete-review(data-review-id=`${review.id}`) Delete
