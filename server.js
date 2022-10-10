@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');
 const http = require('http');
 const socketio = require('socket.io');
 const formatMessage = require('./Utils/formatMessage');

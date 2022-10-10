@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const passport = require('passport');
+const session = require('express-session');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
@@ -17,6 +19,19 @@ const purchaseRouter = require('./routes/purchaseRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
+
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'SECRET',
+  })
+);
+
+require('./public/js/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // 1) Global middleware
 //Serving static files
@@ -49,7 +64,11 @@ app.use(
           'https://*.cloudflare.com',
           'https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.js',
         ],
-        frameSrc: ["'self'", 'https://js.stripe.com'],
+        frameSrc: [
+          "'self'",
+          'https://js.stripe.com',
+          'https://accounts.google.com/',
+        ],
         objectSrc: ["'none'"],
         styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
         workerSrc: [
