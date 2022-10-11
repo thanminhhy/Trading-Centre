@@ -28,7 +28,7 @@ app.use(
   })
 );
 
-require('./public/js/passport');
+require('./controllers/authController');
 
 app.use(passport.initialize());
 app.use(passport.session());

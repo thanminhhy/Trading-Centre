@@ -6,7 +6,7 @@ const signToken = (id) => {
   });
 };
 
-module.exports = (user, statusCode, res) => {
+module.exports = (user, statusCode, res, type) => {
   const token = signToken(user._id);
 
   const cookieOptions = {
@@ -22,6 +22,10 @@ module.exports = (user, statusCode, res) => {
 
   //Remove password from output
   user.password = undefined;
+
+  if (type === 'googleLogin') {
+    res.redirect('/');
+  }
 
   res.status(statusCode).json({
     status: 'success',

@@ -1,11 +1,52 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const crypto = require('crypto');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const createSendToken = require('./../Utils/createSendToken');
 const User = require('./../models/userModel');
 const catchAsync = require('./../Utils/catchAsync');
 const AppError = require('./../Utils/appError');
 const Email = require('../Utils/email');
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((obj, cb) => {
+  cb(null, obj);
+});
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: 'http://127.0.0.1:3000/api/users/auth/google/callback',
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      console.log(profile);
+      const userEmail = profile.emails[0].value;
+      const userName = profile.displayName;
+      const { provider } = profile;
+
+      const existUser = await User.findOne({ email: userEmail });
+
+      if (!existUser) {
+        const user = new User({
+          name: userName,
+          email: userEmail,
+          status: 'active',
+          serviceProvider: provider,
+        });
+
+        await user.save({ validateBeforeSave: false });
+        return done(null, user);
+      }
+      done(null, existUser);
+    }
+  )
+);
 
 const createConfirmationCode = catchAsync(async (req, res, next) => {
   //Get user from signup method
@@ -79,6 +120,13 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
+  const user = await User.findOne({ email }).select('+password +status');
+
+  if (user.serviceProvider !== 'Trading Centre') {
+    return next(
+      new AppError('The email is authorized by Google. Can not login!', 401)
+    );
+  }
 
   //1) Check if email and password exist
   if (!email || !password) {
@@ -86,13 +134,13 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   //2) Check if user exists and password is correct
-  const user = await User.findOne({ email }).select('+password +status');
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return res.status(401).send({
       message: 'Incorrect email or password!',
     });
   }
+
   //3) If user is pending, show the message notify
   if (user.status !== 'Active') {
     return res.status(401).send({
@@ -102,6 +150,15 @@ exports.login = catchAsync(async (req, res, next) => {
 
   //4) If everything ok, send token to client
   createSendToken(user, 200, res);
+});
+
+exports.googleLogin = catchAsync(async (req, res, next) => {
+  if (!req.user) {
+    return res.status(404).send({
+      message: 'User Not Found',
+    });
+  }
+  createSendToken(req.user, 200, res, 'googleLogin');
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -194,6 +251,15 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     );
   }
 
+  if (user.serviceProvider !== 'Trading Centre') {
+    return next(
+      new AppError(
+        'Your current logined with google account. Can not change Password!',
+        401
+      )
+    );
+  }
+
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
@@ -206,6 +272,15 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return next(new AppError('There is no user with the email address!', 404));
+  }
+
+  if (user.serviceProvider !== 'Trading Centre') {
+    return next(
+      new AppError(
+        'Your current email is authorized by Google. Can not reset Password!',
+        401
+      )
+    );
   }
 
   //Generate the random reset token
@@ -253,6 +328,15 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   //If token has not expired, and there is user,set the new password
   if (!user) {
     return next(new AppError('Token is invalid or has expired!', 400));
+  }
+
+  if (user.serviceProvider !== 'Trading Centre') {
+    return next(
+      new AppError(
+        'Your current email is authorized by Google. Can not reset Password!',
+        401
+      )
+    );
   }
 
   user.password = req.body.password;

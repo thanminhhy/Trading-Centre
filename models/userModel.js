@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, 'please a valid email!'],
   },
 
+  serviceProvider: {
+    type: String,
+    default: 'Trading Centre',
+  },
+
   photo: {
     type: String,
     default: 'default.jpg',
