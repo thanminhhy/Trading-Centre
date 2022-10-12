@@ -5,10 +5,6 @@ const messageSchema = new mongoose.Schema(
     conversationId: String,
     sender: { type: mongoose.Schema.ObjectId, ref: 'User' },
     message: String,
-    // timestamp: {
-    //   type: Date,
-    //   default: Date.now(),
-    // },
   },
   { timestamps: true }
 );

@@ -25,7 +25,6 @@ passport.use(
       callbackURL: 'http://127.0.0.1:3000/api/users/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
       const userEmail = profile.emails[0].value;
       const userName = profile.displayName;
       const { provider } = profile;

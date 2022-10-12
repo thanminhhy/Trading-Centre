@@ -32,7 +32,10 @@ block content
               td= user.address
               td= user.city
               td= user.gender
-              td= user.dateOfBirth.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})
+              -if(user.serviceProvider ==='Trading Centre')
+                td= user.dateOfBirth.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})
+              -else
+                td= None
               td= user.role
               td= user.status
               td 

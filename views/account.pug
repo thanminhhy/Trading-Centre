@@ -11,11 +11,12 @@ block content
   main.main
     .user-view
       nav.user-view__menu
-        ul.side-nav
-          +navItem('#','Settings','settings',true)
-          +navItem('/myPurchases','My Purchases','briefcase')
-          +navItem('#','My reivews','star')
-          +navItem('#','Billing','credit-card')
+        -if(user.role !== 'admin')
+          ul.side-nav
+            +navItem('#','Settings','settings',true)
+            +navItem('/myPurchases','My Purchases','briefcase')
+            +navItem('#','My reivews','star')
+            +navItem('#','Billing','credit-card')
         - if(user.role === 'admin')
           .admin-nav
             h5.admin-nav__heading Admin
@@ -24,14 +25,12 @@ block content
               +navItem('#','Manage users', 'users')
               +navItem('#','Manage reviews', 'star')
               +navItem('#','Manage bookings', 'briefcase')
-        - if(user.role === 'admin')
+        - if(user.role === 'lessor')
           .lessor-nav
             h5.admin-nav__heading Lessor
             ul.side-nav
               +navItem('#','Settings','settings',true)
               +navItem('#','My Post','briefcase')
-              +navItem('#','My reivews','star')
-              +navItem('#','Billing','credit-card')
 
 
 
@@ -46,9 +45,10 @@ block content
             .form__group.ma-bt-md
               label.form__label(for='email') Email address
               input#email.form__input(type='email', value=`${user.email}`, required, name='email')
-            .form__group.ma-bt-md
-              label.form__label(for='dateOfBirth') Date Of Birth
-              input#dateOfBirth.form__input(type='date', value=`${moment(user.dateOfBirth).format('YYYY-MM-DD')}`, required, name='dateOfBirth')
+            -if(user.serviceProvider === 'Trading Centre')
+              .form__group.ma-bt-md
+                label.form__label(for='dateOfBirth') Date Of Birth
+                input#dateOfBirth.form__input(type='date', value=`${moment(user.dateOfBirth).format('YYYY-MM-DD')}`, required, name='dateOfBirth')
             .form__group.ma-bt-md
               label.form__label(for='phoneNumber') Phone Number
               input#phoneNumber.form__input(type='text', value=`${user.phoneNumber}`, required, name='phoneNumber')
