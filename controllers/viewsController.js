@@ -98,14 +98,22 @@ exports.getPost = catchAsync(async (req, res, next) => {
     path: 'reviews',
     fields: 'review rating user',
   });
-  const userId = req.user.id;
-  const purchases = await Purchase.find({ user: req.user.id });
-  let isReview = false;
-  let isPay = false;
 
   if (!post) {
     return next(new AppError('There is no post with that id.', 404));
   }
+
+  if (!req.user) {
+    res.status(200).render('post', {
+      title: `${post.title}`,
+      post,
+    });
+  }
+
+  const userId = req.user.id;
+  const purchases = await Purchase.find({ user: req.user.id });
+  let isReview = false;
+  let isPay = false;
 
   purchases.forEach((purchase) => {
     if (
