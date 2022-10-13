@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const http = require('http');
+const socketio = require('socket.io');
+const formatMessage = require('./Utils/formatMessage');
 
 process.on('uncaughtException', (err) => {
   console.log('UNHANDLED REJECTION! Shutting down...');
@@ -10,6 +13,27 @@ process.on('uncaughtException', (err) => {
 dotenv.config({ path: './config.env' });
 
 const app = require('./app');
+
+const server = http.createServer(app);
+const io = socketio(server);
+
+// Run when client connect
+io.on('connection', (socket) => {
+  //Listen for chat message
+  socket.on('chatMessage', (msg, user) => {
+    // const user = getCurrentUser(socket.id);
+    io.emit('message', formatMessage(user.name, msg), user);
+  });
+
+  //listen for video call
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId);
+    socket.to(roomId).emit('user-connected', userId);
+    socket.on('disconnect', () => {
+      socket.to(roomId).emit('user-disconnected', userId);
+    });
+  });
+});
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
@@ -26,7 +50,7 @@ mongoose
   .then(() => console.log('DB connect successfully!'));
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
 

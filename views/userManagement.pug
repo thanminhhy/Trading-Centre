@@ -1,0 +1,45 @@
+extends base
+
+block content
+  .main
+    .table-wrapper
+      .table-title
+        .row
+          h2 Welcome Admin!
+          form.form-inline
+            input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search')
+      table#data_table.table.table-striped.table-hover
+        thead
+          tr
+            th ID
+            th Name
+            th Email
+            th Phone Number
+            th Address
+            th City
+            th Gender
+            th Date Of Birth
+            th Role
+            th Status
+            th Action
+        tbody#tableRow
+          each user in users
+            tr
+              td= user.id
+              td= user.name 
+              td= user.email
+              td= user.phoneNumber
+              td= user.address
+              td= user.city
+              td= user.gender
+              -if(user.serviceProvider ==='Trading Centre')
+                td= user.dateOfBirth.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})
+              -else
+                td= None
+              td= user.role
+              td= user.status
+              td 
+                a(href=`/editUser/${user.id}`) Edit | 
+                button.delete-user(data-user-id=`${user.id}`) Delete
+              td 
+                img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
