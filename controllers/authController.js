@@ -35,7 +35,7 @@ passport.use(
         const user = new User({
           name: userName,
           email: userEmail,
-          status: 'active',
+          status: 'Active',
           serviceProvider: provider,
         });
 

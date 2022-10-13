@@ -14,23 +14,15 @@ block content
         -if(user.role !== 'admin')
           ul.side-nav
             +navItem('#','Settings','settings',true)
-            +navItem('/myPurchases','My Purchases','briefcase')
+            +navItem('/myPurchases','My Purchases','credit-card')
             +navItem('#','My reivews','star')
-            +navItem('#','Billing','credit-card')
+
         - if(user.role === 'admin')
           .admin-nav
-            h5.admin-nav__heading Admin
             ul.side-nav
-              +navItem('#','Manage Posts', 'map')
               +navItem('#','Manage users', 'users')
               +navItem('#','Manage reviews', 'star')
               +navItem('#','Manage bookings', 'briefcase')
-        - if(user.role === 'lessor')
-          .lessor-nav
-            h5.admin-nav__heading Lessor
-            ul.side-nav
-              +navItem('#','Settings','settings',true)
-              +navItem('#','My Post','briefcase')
 
 
 
