@@ -12,7 +12,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     payment_method_types: ['card'],
     success_url: `${req.protocol}://${req.get('host')}/?post=${
       req.params.postID
-    }&user=${req.user.id}&price=${post.price}`,
+    }&user=${req.user.id}&price=${post.price}&lessor=${post.lessor.id}`,
     cancel_url: `${req.protocol}://${req.get('host')}/post/${post.id}`,
     customer_email: req.user.email,
     client_reference_id: req.params.postID,
@@ -40,11 +40,11 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 
 exports.createProductCheckout = catchAsync(async (req, res, next) => {
-  const { post, user, price } = req.query;
+  const { post, user, price, lessor } = req.query;
 
-  if (!post && !user && !price) return next();
+  if (!post && !user && !price && !lessor) return next();
 
-  await Purchase.create({ post, user, price });
+  await Purchase.create({ post, user, price, lessor });
 
   res.redirect(req.originalUrl.split('?')[0]);
 });

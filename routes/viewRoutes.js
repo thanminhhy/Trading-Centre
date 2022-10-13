@@ -25,11 +25,7 @@ router.get(
   viewsController.getMyPosts
 );
 
-router.get(
-  '/myPurchases',
-  authController.protect,
-  viewsController.getMyPurchases
-);
+router.get('/Orders', authController.protect, viewsController.getOrders);
 
 router.get(
   '/createPost',
