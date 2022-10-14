@@ -359,3 +359,7 @@ exports.getEditReviewForm = catchAsync(async (req, res, next) => {
     reviewId,
   });
 });
+
+exports.getState = catchAsync(async (req, res, next) => {
+  res.status(200).render('state');
+});

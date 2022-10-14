@@ -447,6 +447,12 @@ button.btn.btn--red {
   color: white;
 }
 
+.chart-wrapper {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+
 button.btn.btn--chat {
   background-color: rgba(20, 180, 164, 0.411);
   color: white;

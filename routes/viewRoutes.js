@@ -98,4 +98,6 @@ router.get(
   viewsController.getEditReviewForm
 );
 
+router.get('/state', viewsController.getState);
+
 module.exports = router;
