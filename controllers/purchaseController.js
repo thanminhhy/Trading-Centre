@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Post = require('../models/postModel');
 const Purchase = require('../models/purchaseModel');
 const catchAsync = require('../Utils/catchAsync');
-const AppError = require('../Utils/appError');
+const AppError = require('../Utils/appError');  
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.postID);

@@ -13,12 +13,6 @@ block content
               span= post.title
 
           .card__details
-            h4.card__sub-heading= `${post.description}`
-            p.card__text= `category`
-            //- .card__data
-            //-   svg.card__icon
-            //-     use(xlink:href='img/icons.svg#icon-map-pin')
-            //-   span= post.startLocation.description
             .card__data
               svg.card__icon
                 use(xlink:href='img/icons.svg#icon-calendar')
@@ -27,17 +21,15 @@ block content
               svg.card__icon
                 use(xlink:href='img/icons.svg#icon-user')
               span= `${post.lessor.name}`
-            //- .card__data
-            //-   svg.card__icon
-            //-     use(xlink:href='img/icons.svg#icon-user')
-            //-   span= `${post.maxGroupSize} people`
-
-          .card__footer
-            p
-              span.card__footer-value= `$${post.price}`
-
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-dollar-sign')
+              span= `$${post.price}`
+          
             //- p.card__ratings
             //-   span.card__footer-value= `${post.ratingsAverage}`
             //-   | 
             //-   span.card__footer-text=`rating (${post.ratingsQuantity})`
-            a.btn.btn--green.btn--small(href=`/post/${post.id}`) Details
+
+          .card__footer
+            a.btn.btn-success(href=`/post/${post.id}` style='width: 100%; border-radius: 0;  border-radius: 2%; background-color: #50c296') Details

@@ -14,7 +14,7 @@ block content
         -if(user.role !== 'admin')
           ul.side-nav
             +navItem('#','Settings','settings',true)
-            +navItem('/Orders','My Purchases','credit-card')
+            +navItem('/Orders','Orders','credit-card')
             +navItem('#','My reivews','star')
 
         - if(user.role === 'admin')
