@@ -132,7 +132,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
       isReview = true;
     }
   });
-  console.log(post.reviews);
+
   //Render template
   res.status(200).render('post', {
     title: `${post.title}`,
@@ -327,11 +327,26 @@ exports.getLessorPostsPage = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getMyPurchases = catchAsync(async (req, res, next) => {
+exports.getOrders = catchAsync(async (req, res, next) => {
   const purchases = await Purchase.find({ user: req.user.id });
-  res.status(200).render('myPurchase', {
-    title: 'My Purchases',
+  const user = req.user;
+
+  console.log(purchases);
+  if (user.role === 'lessor') {
+    const purchases = await Purchase.find({ lessor: user.id });
+
+    return res.status(200).render('Orders', {
+      title: 'Orders',
+      purchases,
+      user,
+      moment: require('moment'),
+    });
+  }
+
+  res.status(200).render('Orders', {
+    title: 'Orders',
     purchases,
+    user,
     moment: require('moment'),
   });
 });

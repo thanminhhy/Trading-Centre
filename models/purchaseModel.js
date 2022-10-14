@@ -11,6 +11,11 @@ const purchaseSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, 'Purchase must belong to a User'],
   },
+  lessor: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: [true, 'Purchase must belong to a Lessor'],
+  },
   price: {
     type: Number,
     required: [true, 'Purchase must have a price'],
@@ -30,6 +35,7 @@ purchaseSchema.pre(/^find/, function (next) {
     path: 'post',
     select: 'title',
   });
+  // .populate({ path: 'lessor', select: 'role' });
   next();
 });
 
