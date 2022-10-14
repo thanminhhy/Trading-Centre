@@ -1,0 +1,35 @@
+extends base
+
+block content
+  main.main 
+    .card-container
+      each post in posts
+        .card
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`img/posts/${post.imageCover}`, alt=`${post.title}`)
+            h3.heading-tertirary
+              span= post.title
+
+          .card__details
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-calendar')
+              span= post.createdAt.toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-user')
+              span= `${post.lessor.name}`
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-dollar-sign')
+              span= `$${post.price}`
+          
+            //- p.card__ratings
+            //-   span.card__footer-value= `${post.ratingsAverage}`
+            //-   | 
+            //-   span.card__footer-text=`rating (${post.ratingsQuantity})`
+
+          .card__footer
+            a.btn.btn-success(href=`/post/${post.id}` style='width: 100%; border-radius: 0;  border-radius: 2%; background-color: #50c296') Details

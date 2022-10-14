@@ -1,0 +1,34 @@
+extends base
+
+block content
+  main.main
+    .editUser-form
+      h2.heading-secondary.ma-bt-lg Edit #{user.name} Profile
+      input#userId.form-control(type='hidden', name='userId', value=userId)
+      form.form.form--editUser
+        .form__group
+          label.form__label(for='name') Name
+          input#name.form__input(type='text', value = `${user.name}`, required)
+        .form__group
+          label.form__label(for='email') Email
+          input#email.form__input(type='email', value = `${user.email}`)
+        .form__group
+          label.form__label(for='phoneNumber') Phone Number
+          input#phoneNumber.form__input(type='text', value = `${user.phoneNumber}`, required)
+        .form__group
+          label.form__label(for='address') Address
+          input#address.form__input(type='text', value = `${user.address}`, required)
+        .form__group
+          label.form__label(for='city') City 
+          input#city.form__input(type='text', value = `${user.city}`, required)
+        .form__group
+          label.form__label(for='gender') Gender
+          input#gender.form__input(type='text', value = `${user.gender}`, required)
+        .form__group
+          label.form__label(for='status') Status
+          input#status.form__input(type='text', value = `${user.status}`, required)
+        .form__group
+          label.form__label(for='role') Role
+          input#role.form__input(type='text', value = `${user.role}`, required)
+        .form__group
+          button.btn.btn--green Edit

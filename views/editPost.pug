@@ -1,0 +1,26 @@
+extends base
+
+block content
+  main.main
+    .editPost-form
+      h2.heading-secondary.ma-bt-lg Edit #{post.title} Post
+      input#postId.form-control(type='hidden', name='postId', value=post.id)
+      form.form.form--editPost
+        .form__group
+          label.form__label(for='title') Title
+          input#title.form__input(type='text', value = `${post.title}`, required)
+        .form__group
+          label.form__label(for='description') Description
+          input#description.form__input(type='text', value = `${post.description}`)
+        .form__group
+          label.form__label(for='price') Price
+          input#price.form__input(type='number', value = `${post.price}`, required)
+        .form__group.form__photo-upload
+          img.form__user-photo(src=`/img/posts/${post.imageCover}`, alt='Post Image Cover')
+          input.form__upload(type='file', accept='image/*', id='imageCover', name='imageCover')
+          label(for='imageCover') Change Image Cover
+        .form__group.form__photo-upload
+          input.form__upload(type='file', accept='image/*', id=`images`, name='images', multiple="multiple")
+          label(for='images') Change Images
+        .form__group
+          button.btn.btn-success.fs-2 Edit
