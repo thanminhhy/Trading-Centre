@@ -615,8 +615,8 @@ button.btn.btn--chat {
 }
 
 .review__button {
-  display: flex;
   justify-content: space-between;
+  text-decoration: none;
 }
 
 .section-reviews {

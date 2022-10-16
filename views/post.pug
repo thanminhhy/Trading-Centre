@@ -26,7 +26,7 @@ block content
           //- +overviewBox('Rating', `${post.ratingsAverage} / 5`, 'star')
           -if(isPay && !isReview)
             a.review__button(href= `/AddReview/${[post.id]}`) 
-            button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize Review
+              button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize Review
           -if(!user || user.id !== post.lessor.id && user.role !== 'admin')
             button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize#buy-product(data-post-id=`${post.id}` style='margin-left: 13px') Rent
             a#chatButton.chat__button(href=`/checkChatBox/${post.lessor.id}`)

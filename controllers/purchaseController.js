@@ -1,8 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const mongoose = require('mongoose');
 const Post = require('../models/postModel');
 const Purchase = require('../models/purchaseModel');
 const catchAsync = require('../Utils/catchAsync');
-const AppError = require('../Utils/appError');  
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.postID);
@@ -47,4 +47,50 @@ exports.createProductCheckout = catchAsync(async (req, res, next) => {
   await Purchase.create({ post, user, price, lessor });
 
   res.redirect(req.originalUrl.split('?')[0]);
+});
+
+exports.getSalesMonthly = catchAsync(async (req, res, next) => {
+  const date = new Date();
+  const curYear = date.getFullYear();
+  const data = await Purchase.aggregate([
+    {
+      $match: {
+        post: new mongoose.Types.ObjectId(req.params.postId),
+      },
+    },
+    {
+      //The $project function in MongoDB passes along the documents with only the specified fields to the next stage in the pipeline.
+      $project: {
+        month: { $month: '$createdAt' },
+        year: { $year: '$createdAt' },
+        price: '$price',
+      },
+    },
+    {
+      $match: {
+        year: curYear,
+      },
+    },
+    {
+      $group: {
+        _id: '$month',
+        sale: { $sum: '$price' },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        Month: '$_id',
+        sale: 1,
+      },
+    },
+    {
+      $sort: { Month: 1 },
+    },
+  ]);
+
+  res.status(200).json({
+    status: 'success',
+    data,
+  });
 });

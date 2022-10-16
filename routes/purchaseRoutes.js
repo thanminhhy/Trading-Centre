@@ -10,4 +10,6 @@ router.get(
   purchaseController.getCheckoutSession
 );
 
+router.get('/getSalesMonthly/:postId', purchaseController.getSalesMonthly);
+
 module.exports = router;

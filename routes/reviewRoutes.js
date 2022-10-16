@@ -4,6 +4,8 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router({ mergeParams: true });
 
+router.get('/reviewsState/:postId', reviewController.getReviewStats);
+
 router.use(authController.protect);
 
 router

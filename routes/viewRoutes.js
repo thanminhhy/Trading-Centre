@@ -94,6 +94,6 @@ router.get(
   viewsController.getEditReviewForm
 );
 
-router.get('/state', viewsController.getState);
+router.get('/state/:postId', viewsController.getState);
 
 module.exports = router;
