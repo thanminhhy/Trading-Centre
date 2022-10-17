@@ -32,6 +32,8 @@ block content
             a#chatButton.chat__button(href=`/checkChatBox/${post.lessor.id}`)
               button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize Chat
           -else if(user.role === 'admin' || user.id === post.lessor.id  )
+            a.state__button(href= `/state/${[post.id]}`) 
+              button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize State
             a.edit__button(href= `/editPost/${[post.id]}`) 
               button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize Edit
             button.btn.btn-outline-success.mt-3.fs-3.p-3.text-capitalize.ms-3#delete-post(data-post-id=`${post.id}`) Delete

@@ -1,4 +1,5 @@
 // const AppError = require('../Utils/appError');
+const mongoose = require('mongoose');
 const Review = require('./../models/reviewModel');
 const catchAsync = require('./../Utils/catchAsync');
 const factory = require('./handlerFactory');
@@ -17,70 +18,35 @@ exports.updateReview = factory.updateOne(Review);
 exports.deleteReview = factory.deleteOne(Review);
 
 exports.getReviewStats = catchAsync(async (req, res, next) => {
-  const fiveStar = await Review.aggregate([
+  const data = await Review.aggregate([
     {
-      $match: { rating: 5 },
+      $match: {
+        post: new mongoose.Types.ObjectId(req.params.postId),
+      },
+    },
+    {
+      $project: {
+        rating: '$rating',
+      },
     },
     {
       $group: {
-        _id: '$post',
+        _id: '$rating',
         num: { $sum: 1 },
       },
     },
-  ]);
-  const fourStar = await Review.aggregate([
     {
-      $match: { rating: 4 },
-    },
-    {
-      $group: {
-        _id: '$post',
-        num: { $sum: 1 },
+      $project: {
+        _id: 0,
+        rating: '$_id',
+        amount: '$num',
       },
     },
-  ]);
-  const threeStar = await Review.aggregate([
-    {
-      $match: { rating: 3 },
-    },
-    {
-      $group: {
-        _id: '$post',
-        num: { $sum: 1 },
-      },
-    },
-  ]);
-  const twoStar = await Review.aggregate([
-    {
-      $match: { rating: 2 },
-    },
-    {
-      $group: {
-        _id: '$post',
-        num: { $sum: 1 },
-      },
-    },
-  ]);
-  const oneStar = await Review.aggregate([
-    {
-      $match: { rating: 1 },
-    },
-    {
-      $group: {
-        _id: '$post',
-        num: { $sum: 1 },
-      },
-    },
+    { $sort: { rating: 1 } },
   ]);
 
   res.status(200).json({
     status: 'success',
-    data: {
-      fiveStar,
-      fourStar,
-      threeStar,
-      twoStar,
-      oneStar,
-    },
+    data,
   });
 });

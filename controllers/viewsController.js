@@ -376,9 +376,9 @@ exports.getEditReviewForm = catchAsync(async (req, res, next) => {
 });
 
 exports.getState = catchAsync(async (req, res, next) => {
-  const post = await Post.findOne({ _id: req.params.postId }).populate({
-    path: 'reviews',
-    fields: 'rating',
+  const post = await Post.findOne({ _id: req.params.postId });
+  res.status(200).render('state', {
+    title: 'State',
+    post,
   });
-  res.status(200).render('state');
 });

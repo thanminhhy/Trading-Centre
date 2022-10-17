@@ -447,10 +447,18 @@ button.btn.btn--red {
   color: white;
 }
 
-.chart-wrapper {
-  width: 500px;
-  height: 500px;
+.chart-wrapper__review {
+  width: 450px;
   margin: 0 auto;
+  float: left;
+  border-style: groove;
+}
+.chart-wrapper__sale {
+  width: 844px;
+  padding-top: 25px;
+  margin: 0 auto;
+  float: right;
+  border-style: groove;
 }
 
 button.btn.btn--chat {
@@ -468,7 +476,12 @@ button.btn.btn--chat {
   margin-bottom: 2rem;
 }
 
+.state__button {
+  text-decoration: none;
+}
+
 .edit__button {
+  margin-left: 14px;
   text-decoration: none;
 }
 

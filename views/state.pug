@@ -1,11 +1,15 @@
 extends base
 
 block content
-  .wrapper
-    .container.d-flex.flex-coloumn.justify-content-center.allign-items-center
-      .title.text-center.mb-5
-        h1 What's your favorite?
-        .chart-wrapper
-          canvas#myChart
-        .chart-wrapper
-          canvas#myChart2
+  main.main
+    form.form.form--state
+      .wrapper
+        .container.d-flex.flex-coloumn.justify-content-center.allign-items-center
+          input#postId.form-control(type='hidden', name='postId', value=post.id)
+          .title.text-center.mb-5
+            .chart-wrapper__review
+              h1 Review's statistic of #{post.title} Product
+              canvas#reviewChart
+            .chart-wrapper__sale
+              h1 Sale's statistic of #{post.title} Product 
+              canvas#saleChart
