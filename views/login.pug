@@ -13,9 +13,9 @@ block content
           label.form__label(for='password') Password
           input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
         .form__group
-          button.btn.btn--green Login
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%') Login
           a.reset__password(href="/forgotPassword") Forget Password?
-          a.g-signin2(href='api/users/auth/google') Sign In With Google
+          a.google__login.g-signin2(href='api/users/auth/google') Sign In With Google
 
 
 

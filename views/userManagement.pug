@@ -7,8 +7,8 @@ block content
         .row
           h2 Welcome Admin!
           form.form-inline
-            input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search')
-      table#data_table.table.table-striped.table-hover
+            input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 30%; margin-bottom: 20px')
+      table#data_table.table.table-bordered
         thead
           tr
             th ID
@@ -39,7 +39,9 @@ block content
               td= user.role
               td= user.status
               td 
-                a(href=`/editUser/${user.id}`) Edit | 
-                button.delete-user(data-user-id=`${user.id}`) Delete
+                a(href=`/editUser/${user.id}`) 
+                  button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize Edit 
+                  | 
+                button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize.delete-user(data-user-id=`${user.id}`) Delete
               td 
                 img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')

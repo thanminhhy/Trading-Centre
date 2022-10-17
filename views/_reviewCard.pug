@@ -7,14 +7,15 @@ mixin reviewCard(review)
           footer.blockquote-footer.fs-4.mt-2
             | #{review.user.name} 
             cite (#{review.createdAt.toLocaleString('en-us', {day: 'numeric',month: 'long', year: 'numeric'})})
-              .reviews__rating
-                each star in [1,2,3,4,5]
-                  p(style='font-size: 18px')= '☆'
-              -if(user.role === 'admin' || user.id === review.user.id)
-                .review__button
-                  a.edit__button(href= `/editReview/${[review.id]}`) 
-                    button.btn.btn--green Edit 
-                  button.btn.btn--red.delete__button#delete-review(data-review-id=`${review.id}`) Delete
+              .reviews__options
+                .reviews__rating
+                  each star in [1,2,3,4,5]
+                    p(style='font-size: 18px')= '☆'
+                -if(user.role === 'admin' || user.id === review.user.id)
+                  .review__button
+                    a.edit__button(href= `/editReview/${[review.id]}`) 
+                      button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize Edit 
+                    button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize.delete__button#delete-review(data-review-id=`${review.id}`) Delete
       //- .reviews__card
       //-   .reviews__avatar
       //-     img.reviews__avatar-img(src=`/img/users/${review.user.photo}`, alt=`${review.user.name}`)

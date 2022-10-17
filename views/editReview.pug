@@ -10,21 +10,13 @@ block content
         .form__group
           input#review.form__input(type='text', value= `${review.review}`,required)
         select.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
-          option(selected='').fs-3 Open this select menu
+          option(selected='').fs-3 Rating
           option(value='1') 1
           option(value='2') 2
           option(value='3') 3
           option(value='4') 4
           option(value='5') 5
 
-        //- .form__group
-        //-   label.form__label(for='rating') Rating
-        //-   select#rating(name='rating' size='4', required)
-        //-     option(value='1') 1
-        //-     option(value='2') 2
-        //-     option(value='3') 3
-        //-     option(value='4') 4
-        //-     option(value='5') 5
 
         .form__group
-          button.btn.btn-success.mt-5.fs-3.p-3.text-capitalize Edit
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%') Edit

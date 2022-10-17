@@ -23,12 +23,37 @@ block content
           input#city.form__input(type='text', value = `${user.city}`, required)
         .form__group
           label.form__label(for='gender') Gender
-          input#gender.form__input(type='text', value = `${user.gender}`, required)
+          select#gender.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+            if(user.gender === 'Male')
+              option(selected=`${user.gender}`).fs-3 #{user.gender}
+              option(value='Female') Female
+            if(user.gender === 'Female')
+              option(selected=`${user.gender}`).fs-3 #{user.gender}
+              option(value='Male') Male
         .form__group
           label.form__label(for='status') Status
-          input#status.form__input(type='text', value = `${user.status}`, required)
+          select#status.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+            if(user.status === 'Active')
+              option(selected=`${user.status}`).fs-3 #{user.status}
+              option(value='Pending') Pending
+              option(value='InActive') InActive
+            if(user.status === 'Pending')
+              option(selected=`${user.status}`).fs-3 #{user.status}
+              option(value='Active') Active
+              option(value='InActive') InActive
+            if(user.status === 'InActive')
+              option(selected=`${user.status}`).fs-3 #{user.status}
+              option(value='Active') Active
+              option(value='Pending') Pending
         .form__group
           label.form__label(for='role') Role
-          input#role.form__input(type='text', value = `${user.role}`, required)
+          select#role.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+            -if(user.role === 'lessor')
+              option(selected=`${user.role}`).fs-3 #{user.role}
+              option(value='user') user
+            -if(user.role ==='user')
+              option(selected=`${user.role}`).fs-3 #{user.role}
+              option(value='lessor') lessor
+
         .form__group
-          button.btn.btn--green Edit
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%')  Edit

@@ -19,7 +19,7 @@ const login = async (email, password) => {
       }, 1500);
     }
   } catch (err) {
-    showAlert('error', err.response.data.message);
+    showAlert('danger', err.response.data.message);
   }
 };
 

@@ -377,6 +377,11 @@ exports.getEditReviewForm = catchAsync(async (req, res, next) => {
 
 exports.getState = catchAsync(async (req, res, next) => {
   const post = await Post.findOne({ _id: req.params.postId });
+
+  if (post.lessor._id.toString() !== req.user.id && req.user.role !== 'admin') {
+    return res.redirect('/');
+  }
+
   res.status(200).render('state', {
     title: 'State',
     post,

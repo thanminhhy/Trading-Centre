@@ -78,7 +78,10 @@ const userSchema = new mongoose.Schema({
 
   address: String,
 
-  gender: String,
+  gender: {
+    type: String,
+    enum: ['Male', 'Female'],
+  },
 });
 
 userSchema.pre('save', async function (next) {

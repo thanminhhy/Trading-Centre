@@ -25,7 +25,10 @@ block content
           input#phoneNumber.form__input(type='text', required)
         .form__group
           label.form__label(for='gender') Gender
-          input#gender.form__input(type='text', required)
+          select#gender.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+              option(selected=``).fs-3 Gender
+              option(value='Male') Male
+              option(value='Female') Female
         .form__group.ma-bt-md
           label.form__label(for='password') Password
           input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
@@ -33,4 +36,4 @@ block content
           label.form__label(for='passwordConfirm') Password Confirm
           input#passwordConfirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
         .form__group
-          button.btn.btn--green Sign Up
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%') Sign Up

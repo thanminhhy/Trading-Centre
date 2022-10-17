@@ -103,12 +103,6 @@ body {
   -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
 }
-.alert--success {
-  background-color: #20bf6b;
-}
-.alert--error {
-  background-color: #eb4d4b;
-}
 
 .heading-secondary {
   font-size: 2.25rem;
@@ -627,9 +621,14 @@ button.btn.btn--chat {
   padding-top: 20px;
 }
 
+.reviews__options {
+  display: flex;
+  justify-content: space-between;
+}
 .review__button {
   justify-content: space-between;
   text-decoration: none;
+  justify-content: flex-end;
 }
 
 .section-reviews {
@@ -722,7 +721,7 @@ button.btn.btn--chat {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .reviews__star {
   height: 2rem;
@@ -987,7 +986,13 @@ button.btn.btn--chat {
 }
 .reset__password {
   color: green;
-  font-size: 20px;
+  font-size: 17px;
+  display: flex;
+  padding-top: 10px;
+}
+.google__login {
+  color: green;
+  font-size: 17px;
 }
 @media only screen and (max-width: 37.5em) {
   .nav__el:not(:last-child) {
@@ -1281,7 +1286,9 @@ button.btn.btn--chat {
 .forgotPassword-form,
 .resetPassword-form,
 .getToken-form,
-.createPost-form {
+.createPost-form,
+.editPost-form,
+.editUser-form {
   margin: 0 auto;
   max-width: 55rem;
   background-color: #fff;
