@@ -2,6 +2,12 @@ extends base
 
 block content
   main.main 
+    .search
+      form#search-post
+        .input-group
+          input#search.form-control.search(type='text' placeholder='Search...' name='')
+          .input-group-prepend
+
     .card-container
       each post in posts
         .card
@@ -25,7 +31,6 @@ block content
               svg.card__icon
                 use(xlink:href='img/icons.svg#icon-dollar-sign')
               span= `$${post.price}`
-          
 
           .card__footer
             a.btn.btn-success(href=`/post/${post.id}` style='width: 100%; border-radius: 0;  border-radius: 2%; background-color: #50c296') Details

@@ -36,7 +36,6 @@ if (searchForm) {
         receivers[i].style.display = 'none';
       }
     }
-    console.log(value);
   });
 }
 
