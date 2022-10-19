@@ -52,6 +52,7 @@ app.use(
         fontSrc: ["'self'", 'https:', 'data:'],
         scriptSrc: [
           "'unsafe-inline'",
+          "'unsafe-hashes'",
           "'self'",
           'https:',
           'http:',

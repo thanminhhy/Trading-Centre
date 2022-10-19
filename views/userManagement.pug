@@ -6,7 +6,7 @@ block content
       .table-title
         .row
           h2 Welcome Admin!
-          form.form-inline
+          form#admin-search-user.form-inline
             input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 30%; margin-bottom: 20px')
       table#data_table.table.table-bordered
         thead
@@ -24,9 +24,9 @@ block content
             th Action
         tbody#tableRow
           each user in users
-            tr
+            tr.userInfo
               td= user.id
-              td= user.name 
+              td.user__Name= user.name 
               td= user.email
               td= user.phoneNumber
               td= user.address
@@ -45,3 +45,5 @@ block content
                 button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize.delete-user(data-user-id=`${user.id}`) Delete
               td 
                 img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
+
+  
