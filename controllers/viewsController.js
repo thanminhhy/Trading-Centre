@@ -159,6 +159,7 @@ exports.getEditPostForm = catchAsync(async (req, res, next) => {
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find().select('+status');
+  console.log(users);
 
   res.status(200).render('userManagement', {
     title: 'All Users',
@@ -328,10 +329,8 @@ exports.getLessorPostsPage = catchAsync(async (req, res, next) => {
 });
 
 exports.getOrders = catchAsync(async (req, res, next) => {
-  const purchases = await Purchase.find({ user: req.user.id });
   const user = req.user;
 
-  console.log(purchases);
   if (user.role === 'lessor') {
     const purchases = await Purchase.find({ lessor: user.id });
 
@@ -342,6 +341,7 @@ exports.getOrders = catchAsync(async (req, res, next) => {
       moment: require('moment'),
     });
   }
+  const purchases = await Purchase.find({ user: req.user.id });
 
   res.status(200).render('Orders', {
     title: 'Orders',

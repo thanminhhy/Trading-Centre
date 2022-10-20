@@ -18,7 +18,7 @@ const updateSettings = async (data, type) => {
     if (res.data.status === 'success') {
       showAlert('success', `${type.toUpperCase()} update successfully!`);
       window.setTimeout(() => {
-        location.reload(true);
+        // location.reload(true);
       }, 1500);
     }
   } catch (err) {
@@ -31,9 +31,12 @@ if (updateDataForm) {
   updateDataForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = new FormData();
+    const date = new Date(
+      Date.parse(document.getElementById('dateOfBirth').value)
+    );
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
-    form.append('dateOfBirth', document.getElementById('dateOfBirth').value);
+    form.append('dateOfBirth', date);
     form.append('phoneNumber', document.getElementById('phoneNumber').value);
     form.append('city', document.getElementById('city').value);
     form.append('address', document.getElementById('address').value);

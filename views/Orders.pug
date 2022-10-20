@@ -2,6 +2,9 @@ extends base
 
 block content
   main.main 
+    -if(user.role==='lessor')
+      form#search-order.form-inline
+        input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 30%; margin-bottom: 20px')
     .container.mt-5.fs-3.p-3
       .table.table-bordered
               table.table
@@ -15,13 +18,14 @@ block content
                     th Status
                     th Total
                     -if(user.role==='lessor')
+                      th Receiver Name
                       th Receiver Address
                       th Receiver City
                     th Created At
                     th
                 tbody.table-body
                   each purchase in purchases
-                    tr.cell-1
+                    tr.order__detail.cell-1
                       td.text-center
                         .toggle-btn
                           .inner-circle
@@ -36,6 +40,7 @@ block content
                           span.badge.badge-danger Pending
                       td= `${purchase.price} $`
                       -if(user.role === 'lessor')
+                        td.receiver__name= purchase.user.name
                         td= purchase.user.address
                         td= purchase.user.city
                       td= `${moment(purchase.createdAt).format('YYYY MMMM DD, h:mm a')}`

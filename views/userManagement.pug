@@ -32,17 +32,12 @@ block content
               td= user.address
               td= user.city
               td= user.gender
-              -if(user.serviceProvider ==='Trading Centre')
-                td= user.dateOfBirth.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})
-              -else
-                td= None
+              td= user.dateOfBirth.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})
               td= user.role
               td= user.status
               td 
                 a(href=`/editUser/${user.id}`) 
                   button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize Edit 
-                  | 
-                button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize.delete-user(data-user-id=`${user.id}`) Delete
               td 
                 img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
 
