@@ -9,11 +9,9 @@ if (searchPostForm) {
     e.preventDefault();
 
     const value = e.target.elements.search.value.toLocaleLowerCase();
-    console.log(value);
 
     const postsHeader = document.querySelectorAll('.card__header');
     const posts = document.querySelectorAll('.card');
-    console.log(posts);
 
     for (var i = 0; i < posts.length; i++) {
       const post = postsHeader[i].textContent.toLocaleLowerCase();
@@ -31,11 +29,9 @@ if (adminSearchUserForm) {
   adminSearchUserForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const value = e.target.elements.search.value.toLocaleLowerCase();
-    console.log(value);
 
     const users = document.querySelectorAll('.user__Name');
     const userInfos = document.querySelectorAll('.userInfo');
-    console.log(users);
 
     for (var i = 0; i < users.length; i++) {
       const user = users[i].textContent.toLocaleLowerCase();
@@ -50,10 +46,10 @@ if (adminSearchUserForm) {
 }
 
 if (searchOrdersForm) {
+  ``;
   searchOrdersForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const value = e.target.elements.search.value.toLocaleLowerCase();
-    console.log(value);
 
     const receiversName = document.querySelectorAll('.receiver__name');
     const orders = document.querySelectorAll('.order__detail');

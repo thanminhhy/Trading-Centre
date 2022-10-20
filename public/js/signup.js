@@ -45,7 +45,7 @@ const signUp = async (
       showAlert('success', 'Please check your email to verify account!');
       window.setTimeout(() => {
         location.assign('/');
-      }, 5000);
+      }, 3000);
     }
   } catch (err) {
     showAlert('error', err.response.data.message);

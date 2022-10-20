@@ -4,10 +4,10 @@ block content
   .main
     .table-wrapper
       .table-title
-        .row
+        .div(style='display: flex; justify-content:space-between; align-item:center')
           h2 Welcome Admin!
           form#admin-search-user.form-inline
-            input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 30%; margin-bottom: 20px')
+            input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 100%; margin-bottom: 20px; font-size: 16px')
       table#data_table.table.table-bordered
         thead
           tr

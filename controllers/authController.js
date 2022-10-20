@@ -71,6 +71,7 @@ const createConfirmationCode = catchAsync(async (req, res, next) => {
       message: 'Confirmation Code sent to email!',
     });
   } catch (err) {
+    console.log(err);
     return next(
       new AppError(
         'There was an error sending the email. Try again later!',
@@ -120,16 +121,9 @@ exports.signup = catchAsync(async (req, res, next) => {
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).select('+password +status');
-
-  if (user.serviceProvider !== 'Trading Centre') {
-    return next(
-      new AppError('The email is authorized by Google. Can not login!', 401)
-    );
-  }
-
   //1) Check if email and password exist
   if (!email || !password) {
-    next(new AppError('Please provide email and password'), 400);
+    return next(new AppError('Please provide email and password'), 400);
   }
 
   //2) Check if user exists and password is correct
@@ -145,6 +139,12 @@ exports.login = catchAsync(async (req, res, next) => {
     return res.status(401).send({
       message: 'Pending Account. Please Verify Your Email',
     });
+  }
+
+  if (user.serviceProvider !== 'Trading Centre') {
+    return next(
+      new AppError('The email is authorized by Google. Can not login!', 401)
+    );
   }
 
   //4) If everything ok, send token to client
