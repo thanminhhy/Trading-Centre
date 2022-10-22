@@ -11,7 +11,6 @@ block content
       table#data_table.table.table-bordered
         thead
           tr
-            th ID
             th Name
             th Email
             th Phone Number
@@ -25,7 +24,6 @@ block content
         tbody#tableRow
           each user in users
             tr.userInfo
-              td= user.id
               td.user__Name= user.name 
               td= user.email
               td= user.phoneNumber
