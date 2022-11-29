@@ -10,7 +10,8 @@ mixin reviewCard(review)
               .reviews__options
                 .reviews__rating
                   each star in [1,2,3,4,5]
-                    p(style='font-size: 18px')= '☆'
+                    if(review.rating >= star)
+                      p(style='font-size: 18px')= '☆'
                 -if(user.role === 'admin' || user.id === review.user.id)
                   .review__button
                     a.edit__button(href= `/editReview/${[review.id]}`) 

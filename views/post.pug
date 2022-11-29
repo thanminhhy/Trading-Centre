@@ -21,7 +21,7 @@ block content
           h2.heading-secondary.ma-bt-lg Post Detail
           - const date = post.createdAt.toLocaleString('en-us', {day: 'numeric',month: 'long', year: 'numeric'})
           +overviewBox('Posted on:', date, 'calendar')
-          +overviewBox('Price:', `${post.price}$`, 'credit-card')
+          +overviewBox('Price:', `${post.price}$ / day`, 'credit-card')
           +overviewBox('Owner:', `${post.lessor.name}`, 'user')
           //- +overviewBox('Rating', `${post.ratingsAverage} / 5`, 'star')
           -if(isPay && !isReview)

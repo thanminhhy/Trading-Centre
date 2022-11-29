@@ -18,11 +18,6 @@ const postSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'User',
     },
-
-    category: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Category',
-    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

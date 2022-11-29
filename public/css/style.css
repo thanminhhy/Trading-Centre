@@ -1336,6 +1336,8 @@ button.btn.btn--chat {
 .resetPassword-form,
 .getToken-form,
 .createPost-form,
+.editReview-form,
+.addReview-form,
 .editPost-form,
 .editUser-form {
   margin: 0 auto;

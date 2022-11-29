@@ -12,7 +12,8 @@ block content
           input#review.form__input(type='text', required)
         .form__group
           label.form__label(for='rating') Rating
-          select#rating(name='rating' size='4', required)
+          select#rating.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit' required='').fs-4.p-4
+            option(selected='').fs-3 Rating
             option(value='1') 1
             option(value='2') 2
             option(value='3') 3
@@ -20,4 +21,4 @@ block content
             option(value='5') 5
 
         .form__group
-          button.btn.btn--green Add
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%') Add

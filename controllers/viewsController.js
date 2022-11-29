@@ -104,7 +104,7 @@ exports.getPost = catchAsync(async (req, res, next) => {
   }
 
   if (!req.user) {
-    res.status(200).render('post', {
+    return res.status(200).render('post', {
       title: `${post.title}`,
       post,
     });
