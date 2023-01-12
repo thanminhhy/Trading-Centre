@@ -1,0 +1,24 @@
+extends base
+
+block content
+  main.main
+    .createPost-form
+      h2.heading-secondary.ma-bt-lg Create New Post
+      form.form.form--createPost
+        .form__group
+          label.form__label(for='title') Title
+          input#title.form__input(type='text', required)
+        .form__group
+          label.form__label(for='description') Description
+          input#description.form__input(type='text')
+        .form__group
+          label.form__label(for='price') Price
+          input#price.form__input(type='number', required)
+        .form__group.form__photo-upload
+          input.form__upload(type='file', accept='image/*', id='imageCover', name='imageCover')
+          label(for='imageCover') Choose Image Cover
+        .form__group.form__photo-upload
+          input.form__upload(type='file', accept='image/*', id='images', name='images', multiple="multiple")
+          label(for='images') Choose Images
+        .form__group
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%') Create

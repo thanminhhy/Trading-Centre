@@ -1,0 +1,43 @@
+extends base
+
+block content
+  main.main 
+    each purchase in purchases
+      .container.mt-5
+        .d-flex.justify-content-center.row
+          .col-md-10
+            .rounded
+              .table-responsive.table-borderless
+                table.table
+                  thead
+                    tr
+                      th.text-center
+                        .toggle-btn
+                          .inner-circle
+                      th Order ID
+                      th Product Name
+                      th status
+                      th address
+                      th city
+                      th Total
+                      th Created At
+                      th
+                  tbody.table-body
+                    tr.cell-1
+                      td.text-center
+                        .toggle-btn
+                          .inner-circle
+                      td= purchase.id
+                      td
+                        a(href=`/post/${purchase.post.id}` style='color: black')= purchase.post.title
+                      -if(purchase.paid === true)
+                        td
+                          span.badge.badge-success Paid
+                      -else 
+                        td
+                          span.badge.badge-danger Pending
+                      td= `${purchase.price} $`
+                      td= `${moment(purchase.createdAt).format('MMMM DD, h:mm a')}`
+                      td
+                        i.fa.fa-ellipsis-h.text-black-50
+                  

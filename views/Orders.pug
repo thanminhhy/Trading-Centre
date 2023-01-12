@@ -1,0 +1,48 @@
+extends base
+
+block content
+  main.main 
+    -if(user.role==='lessor')
+      form#search-order.form-inline
+        input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 30%; margin-bottom: 20px;font-size: 16px; margin-left: 2rem')
+    .container.mt-5.fs-3.p-3
+      .table.table-bordered
+              table.table
+                thead
+                  tr
+                    th.text-center
+                      .toggle-btn
+                        .inner-circle
+                    th Order ID
+                    th Product Name
+                    th Status
+                    th Total
+                    -if(user.role==='lessor')
+                      th Receiver Name
+                      th Receiver Address
+                      th Receiver City
+                    th Created At
+                    th
+                tbody.table-body
+                  each purchase in purchases
+                    tr.order__detail.cell-1
+                      td.text-center
+                        .toggle-btn
+                          .inner-circle
+                      td= purchase.id
+                      td
+                        a(href=`/post/${purchase.post.id}` style='color: black')= purchase.post.title
+                      -if(purchase.paid === true)
+                        td
+                          span.badge.bg-light.text-dark Paid
+                      -else 
+                        td
+                          span.badge.badge-danger Pending
+                      td= `${purchase.price} $`
+                      -if(user.role === 'lessor')
+                        td.receiver__name= purchase.user.name
+                        td= purchase.user.address
+                        td= purchase.user.city
+                      td= `${moment(purchase.createdAt).format('YYYY MMMM DD, h:mm a')}`
+                      td
+                        i.fa.fa-ellipsis-h.text-black-50

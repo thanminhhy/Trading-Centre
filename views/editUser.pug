@@ -1,0 +1,59 @@
+extends base
+
+block content
+  main.main
+    .editUser-form
+      h2.heading-secondary.ma-bt-lg Edit #{user.name} Profile
+      input#userId.form-control(type='hidden', name='userId', value=userId)
+      form.form.form--editUser
+        .form__group
+          label.form__label(for='name') Name
+          input#name.form__input(type='text', value = `${user.name}`, required)
+        .form__group
+          label.form__label(for='email') Email
+          input#email.form__input(type='email', value = `${user.email}`)
+        .form__group
+          label.form__label(for='phoneNumber') Phone Number
+          input#phoneNumber.form__input(type='text', value = `${user.phoneNumber}`, required)
+        .form__group
+          label.form__label(for='address') Address
+          input#address.form__input(type='text', value = `${user.address}`, required)
+        .form__group
+          label.form__label(for='city') City 
+          input#city.form__input(type='text', value = `${user.city}`, required)
+        .form__group
+          label.form__label(for='gender') Gender
+          select#gender.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+            if(user.gender === 'Male')
+              option(selected=`${user.gender}`).fs-3 #{user.gender}
+              option(value='Female') Female
+            if(user.gender === 'Female')
+              option(selected=`${user.gender}`).fs-3 #{user.gender}
+              option(value='Male') Male
+        .form__group
+          label.form__label(for='status') Status
+          select#status.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+            if(user.status === 'Active')
+              option(selected=`${user.status}`).fs-3 #{user.status}
+              option(value='Pending') Pending
+              option(value='InActive') InActive
+            if(user.status === 'Pending')
+              option(selected=`${user.status}`).fs-3 #{user.status}
+              option(value='Active') Active
+              option(value='InActive') InActive
+            if(user.status === 'InActive')
+              option(selected=`${user.status}`).fs-3 #{user.status}
+              option(value='Active') Active
+              option(value='Pending') Pending
+        .form__group
+          label.form__label(for='role') Role
+          select#role.form-select(aria-label='Default select example', style='background-color: #f2f2f2; color:inherit').fs-4.p-4
+            -if(user.role === 'lessor')
+              option(selected=`${user.role}`).fs-3 #{user.role}
+              option(value='user') user
+            -if(user.role ==='user')
+              option(selected=`${user.role}`).fs-3 #{user.role}
+              option(value='lessor') lessor
+
+        .form__group
+          button.btn.btn-success.mt-3.fs-4.p-3.text-capitalize(style='width: 100%')  Edit

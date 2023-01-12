@@ -1,0 +1,42 @@
+extends base
+
+block content
+  .main
+    .table-wrapper
+      .table-title
+        .div(style='display: flex; justify-content:space-between; align-item:center')
+          h2 Welcome Admin!
+          form#admin-search-user.form-inline
+            input#search.form-control.mr-sm-2(type='text' onkeyup='myFunction()' placeholder='Search' aria-label='Search' style='width: 100%; margin-bottom: 20px; font-size: 16px')
+      table#data_table.table.table-bordered
+        thead
+          tr
+            th Name
+            th Email
+            th Phone Number
+            th Address
+            th City
+            th Gender
+            th Date Of Birth
+            th Role
+            th Status
+            th Action
+        tbody#tableRow
+          each user in users
+            tr.userInfo
+              td.user__Name= user.name 
+              td= user.email
+              td= user.phoneNumber
+              td= user.address
+              td= user.city
+              td= user.gender
+              td= user.dateOfBirth.toLocaleString('en-US', {day: 'numeric', month: 'long', year: 'numeric'})
+              td= user.role
+              td= user.status
+              td 
+                a(href=`/editUser/${user.id}`) 
+                  button.btn.btn-success.mt-3.fs-4.p-2.text-capitalize Edit 
+              td 
+                img.form__user-photo(src=`/img/users/${user.photo}`, alt='User photo')
+
+  
